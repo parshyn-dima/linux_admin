@@ -1,0 +1,26 @@
+{
+    "builders":[
+        {
+            "type":"virtualbox-iso",
+            "guest_os_type":"RedHat",
+            "iso_url":"file:///home/student/Downloads/CentOS-7-x86_64-Minimal-1908/CentOS-7-x86_64-Minimal-1908.iso",
+            "iso_checksum":"9a2c47d97b9975452f7d582264e9fc16d108ed8252ac6816239a3b58cef5c53d",
+            "iso_checksum_type":"sha256",
+            "vm_name":"CentOS7",
+            "headless":"false",
+            "ssh_username":"vagrant",
+            "ssh_password":"vagrant",
+            "ssh_port":22,
+            "ssh_timeout":"600s",
+            "vboxmanage":[
+                ["modifyvm", "{{.Name}}", "--memory", "2048"],
+                ["modifyvm", "{{.Name}}", "--cpus", "1"],
+                ["modifyvm", "{{.Name}}", "--audio", "none"]
+              ],
+            "disk_size":"10240",
+            "http_directory":"/home/student/Otus/Linux/Packer/",
+            "boot_command":["<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"],
+            "shutdown_command": "/sbin/halt -p"
+        }
+    ]
+}
