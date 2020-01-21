@@ -1,3 +1,1 @@
-*.txt
-*.doc
-*.docx
+packer/centos/packer_cache
