@@ -1,0 +1,44 @@
+#Параметры для ВМ, при необходимости можно добавить еще ВМ
+servers=[
+  {
+    :box_name => "centos/7",
+    :hostname => "parshin-lesson1",
+    :cpus => 2,
+    :ram => 2048,
+    :hdd_size => "10000",
+    :hdd_name => "hdd.vdi"
+  },
+  {
+    :box_name => "centos/7",
+    :hostname => "parshin-lesson2",
+    :cpus => 1,
+    :ram => 1024,
+    :hdd_size => "10000",
+    :hdd_name => "hdd2.vdi"
+  }
+]
+Vagrant.configure("2") do |config|
+#Цикл который проходит по элементам массива servers
+  servers.each do |machine|
+    #Если бы в массиве servers была прописана еще одна ВМ 
+    config.vm.define machine[:hostname] do |node|
+      node.vm.box = machine[:box_name]
+      node.vm.hostname = machine[:hostname]
+      node.vm.provider "virtualbox" do |box|
+        box.customize ["modifyvm", :id, "--memory", machine[:ram], "--cpus", machine[:cpus]]
+        needsController = false
+			  unless File.exist?(machine[:hdd_name])
+				  box.customize ['createhd', '--filename', machine[:hdd_name], '--variant', 'Fixed', '--size', machine[:hdd_size]]
+          needsController =  true
+        end
+        if needsController == true
+          box.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
+          box.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', machine[:hdd_name]]
+        end
+      end
+      node.vm.provision "shell", inline: <<-SHELL
+	      yum install -y mc
+  	  SHELL
+    end
+  end
+end
