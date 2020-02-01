@@ -1,7 +1,7 @@
 servers=[
   {
     :box_name => "centos/7",
-    :hostname => "parshin-lesson1",
+    :hostname => "kernel-update",
     :cpus => 2,
     :ram => 2048,
     :hdd_size => "10000",
@@ -23,9 +23,7 @@ Vagrant.configure("2") do |config|
           box.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', machine[:hdd_name]]
         end
       end
-      node.vm.provision "shell", inline: <<-SHELL
-	      yum install -y mc
-  	  SHELL
+      node.vm.provision "shell", path: "./scripts/kernel-update.sh"
     end
   end
 end
