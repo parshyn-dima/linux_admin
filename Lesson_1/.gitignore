@@ -1,1 +1,4 @@
 packer/centos/packer_cache
+.vagrant/
+*.vdi
+Vagrantfile (with comments)
