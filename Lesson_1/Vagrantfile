@@ -1,4 +1,3 @@
-#Параметры для ВМ, при необходимости можно добавить еще ВМ
 servers=[
   {
     :box_name => "centos/7",
@@ -7,29 +6,15 @@ servers=[
     :ram => 2048,
     :hdd_size => "10000",
     :hdd_name => "hdd.vdi"
-  },
-  {
-    :box_name => "centos/7",
-    :hostname => "parshin-lesson2",
-    :cpus => 1,
-    :ram => 1024,
-    :hdd_size => "10000",
-    :hdd_name => "hdd2.vdi"
   }
 ]
 Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
-#Цикл который проходит по элементам массива servers
   servers.each do |machine|
-    #Применяем конфигурации для каждой машины. Имя машины(как ее будет видно в Vbox GUI) находится в переменной "machine[:hostname]"
     config.vm.define machine[:hostname] do |node|
-      #Поднять ВМ из бокса centos/7, который находится в Vagrant Cloud
       node.vm.box = machine[:box_name]
-      # Hostname ВМ
       node.vm.hostname = machine[:hostname]
-      #Настройка ВМ
       node.vm.provider "virtualbox" do |box|
-        #Назначается размер ОЗУ и кол-во процессоров
         box.customize ["modifyvm", :id, "--memory", machine[:ram], "--cpus", machine[:cpus]]
 				box.customize ['createhd', '--filename', machine[:hdd_name], '--variant', 'Fixed', '--size', machine[:hdd_size]]
         needsController =  true
