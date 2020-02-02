@@ -1,0 +1,81 @@
+{
+    "variables": {
+        "iso_url":"http://centos-mirror.rbc.ru/pub/centos/7.7.1908/isos/x86_64/CentOS-7-x86_64-Minimal-1908.iso",
+        "iso_checksum":"9a2c47d97b9975452f7d582264e9fc16d108ed8252ac6816239a3b58cef5c53d",
+        "iso_checksum_type":"sha256",
+        "artifact_description": "CentOS 7.7 with kernel 5.x",
+        "artifact_version": "7.7.1908",
+        "image_name": "centos-7.7"
+    },
+    "builders": [
+        {
+            "headless": "true",
+
+            "name": "{{user `image_name`}}",
+            "type":"virtualbox-iso",
+            "vm_name":"CentOS7",
+
+            "disk_size":"10240",
+            "guest_os_type":"RedHat_64",
+            "http_directory":"http",
+
+            "iso_url": "{{user `iso_url`}}",
+            "iso_checksum":"{{user `iso_checksum`}}",
+            "iso_checksum_type": "{{user `iso_checksum_type`}}",
+            "guest_additions_path": "VBoxGuestAdditions.iso",
+
+            "boot_command":["<esc>", "<wait><esc><esc>", "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg biosdevname=0, net.ifnames=0","<enter>"],
+
+            "shutdown_command": "sudo -S /sbin/halt -h -p",
+            "shutdown_timeout" : "5m",
+
+            "ssh_username":"vagrant",
+            "ssh_password":"vagrant",
+            "ssh_port":22,
+            "ssh_wait_timeout":"20m",
+
+            "output_directory": "builds",
+
+            "vboxmanage":[
+                ["modifyvm", "{{.Name}}", "--memory", "2048"],
+                ["modifyvm", "{{.Name}}", "--cpus", "1"],
+                ["modifyvm", "{{.Name}}", "--audio", "none"]
+              ],
+            "hard_drive_interface": "sata",
+            "virtualbox_version_file": ".vbox_version",
+
+            "export_opts":[
+                "--manifest",
+                "--vsys", "0",
+                "--description", "{{user `artifact_description`}}",
+                "--version", "{{user `artifact_version`}}"
+            ]
+        }
+    ],
+    "post-processors":[
+        {
+            "output": "centos-{{user `artifact_version`}}-kernel-5-x86_64-Minimal.box",
+            "compression_level": "7",
+            "type": "vagrant"
+        }
+    ],
+    "provisioners":[
+        {
+            "type": "shell",
+            "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'",
+            "start_retry_timeout": "1m",
+            "expect_disconnect": true,
+            "pause_before": "20s",
+            "override": {
+              "{{user `image_name`}}" : {
+                "scripts" :
+                  [
+                    "../scripts/kernel-update.sh",
+                    "../scripts/install-guestadditions.sh",
+                    "../scripts/clean.sh"
+                  ]
+              }
+            }
+        }
+    ]
+}
