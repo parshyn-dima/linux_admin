@@ -9,8 +9,6 @@
     },
     "builders": [
         {
-            "headless": "true",
-
             "name": "{{user `image_name`}}",
             "type":"virtualbox-iso",
             "vm_name":"CentOS7",
@@ -24,7 +22,7 @@
             "iso_checksum_type": "{{user `iso_checksum_type`}}",
             "guest_additions_path": "VBoxGuestAdditions.iso",
 
-            "boot_command":["<esc>", "<wait><esc><esc>", "linux inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg biosdevname=0, net.ifnames=0","<enter>"],
+            "boot_command":["<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"],
 
             "shutdown_command": "sudo -S /sbin/halt -h -p",
             "shutdown_timeout" : "5m",
@@ -37,8 +35,8 @@
             "output_directory": "builds",
 
             "vboxmanage":[
-                ["modifyvm", "{{.Name}}", "--memory", "2048"],
-                ["modifyvm", "{{.Name}}", "--cpus", "1"],
+                ["modifyvm", "{{.Name}}", "--memory", "4096"],
+                ["modifyvm", "{{.Name}}", "--cpus", "12"],
                 ["modifyvm", "{{.Name}}", "--audio", "none"]
               ],
             "hard_drive_interface": "sata",
@@ -70,7 +68,7 @@
               "{{user `image_name`}}" : {
                 "scripts" :
                   [
-                    "../scripts/kernel-update.sh",
+                    "../scripts/kernel-build.sh",
                     "../scripts/install-guestadditions.sh",
                     "../scripts/clean.sh"
                   ]

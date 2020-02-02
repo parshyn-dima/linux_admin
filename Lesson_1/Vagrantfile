@@ -2,8 +2,8 @@ servers=[
   {
     :box_name => "centos/7",
     :hostname => "kernel-update",
-    :cpus => 2,
-    :ram => 2048,
+    :cpus => 10,
+    :ram => 4096,
     :hdd_size => "10000",
     :hdd_name => "hdd.vdi"
   }
