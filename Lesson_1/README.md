@@ -12,3 +12,9 @@
 2.  Vagrant 2.2.7
 3.  Packer 1.5.1
 4.  Git 2.17.1
+
+***Надругих версиях ПО не тестировалось.***<br/>
+***За основу были взяты части кода из репозитория доступного в личном кабинете [manual_kernel_update](https://github.com/dmitry-lyutenko/manual_kernel_update) с внесением некоторых изменений.***
+***
+##VagrantFile
+Vagrantfile, который был придоставлен 
