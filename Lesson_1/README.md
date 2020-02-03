@@ -14,7 +14,7 @@
 4.  Git 2.17.1
 
 ***На других версиях ПО не тестировалось.***<br/>
-***За основу были взяты части кода из репозитория доступного в личном кабинете [manual_kernel_update](https://github.com/dmitry-lyutenko/manual_kernel_update) с внесением некоторых изменений.***
+***За основу были взяты части кода из репозитория доступного в личном кабинете [manual_kernel_update](https://github.com/dmitry-lyutenko/manual_kernel_update), с внесением некоторых изменений.***
 
 ***
 
@@ -22,3 +22,16 @@
 Vagrantfile, который был предоставлен в репозитоии меня не устроил, так как содержит не совсем мне понятный код,
 а также при задании параметров `:net` и `:forwarded_port` выполнение *vagrant up* заканчивается ошибкой.
 Поэтому решил сделать свой вариант. Источники нашел в открытом доступе [здесь](http://sysadm.pp.ua/linux/sistemy-virtualizacii/vagrantfile.html) и [здесь](https://github.com/erlong15/otus-linux/blob/master/Vagrantfile).
+
+В массиве servers описываются параметры ВМ. Если добавить еще один блок {} с параметрами, vagrant создаст две ВМ.
+    servers=[
+      {
+        :box_name => "centos/7",
+        :hostname => "kernel-update",
+        :cpus => 10,
+        :ram => 4096,
+        :hdd_size => "10000",
+        :hdd_name => "hdd.vdi"
+      }
+    ]
+    
