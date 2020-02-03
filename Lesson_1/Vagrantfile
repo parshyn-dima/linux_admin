@@ -25,11 +25,7 @@ Vagrant.configure("2") do |config|
         if needsController == true
           box.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
           box.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', machine[:hdd_name]]
-          box.customize ["storageattach", :id, 
-                "--storagectl", "IDE", 
-                "--port", "0", "--device", "1", 
-                "--type", "dvddrive", 
-                "--medium", "emptydrive"]
+          box.customize ["storageattach", :id, "--storagectl", "IDE", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "emptydrive"]
         end
       end
       node.vm.provision "shell", path: "./scripts/kernel-update.sh"
