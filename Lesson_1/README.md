@@ -25,13 +25,13 @@ Vagrantfile, который был предоставлен в репозито�
 
 В массиве servers описываются параметры ВМ. Если добавить еще один блок {} с параметрами, vagrant создаст две ВМ.
     servers=[
-      {
-        :box_name => "centos/7",
-        :hostname => "kernel-update",
-        :cpus => 10,
-        :ram => 4096,
-        :hdd_size => "10000",
-        :hdd_name => "hdd.vdi"
-      }
+    {
+    :box_name => "centos/7",
+    :hostname => "kernel-update",
+    :cpus => 10,
+    :ram => 4096,
+    :hdd_size => "10000",
+    :hdd_name => "hdd.vdi"
+    }
     ]
     
