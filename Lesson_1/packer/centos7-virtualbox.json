@@ -13,7 +13,7 @@
             "type":"virtualbox-iso",
             "vm_name":"CentOS7",
 
-            "disk_size":"10240",
+            "disk_size":"20480",
             "guest_os_type":"RedHat_64",
             "http_directory":"http",
 
@@ -39,9 +39,7 @@
                 ["modifyvm", "{{.Name}}", "--cpus", "12"],
                 ["modifyvm", "{{.Name}}", "--audio", "none"]
               ],
-            "hard_drive_interface": "sata",
-            "virtualbox_version_file": ".vbox_version",
-
+            
             "export_opts":[
                 "--manifest",
                 "--vsys", "0",
@@ -63,7 +61,7 @@
             "execute_command": "{{.Vars}} sudo -S -E bash '{{.Path}}'",
             "start_retry_timeout": "1m",
             "expect_disconnect": true,
-            "pause_before": "20s",
+            "pause_before": "1m",
             "override": {
               "{{user `image_name`}}" : {
                 "scripts" :

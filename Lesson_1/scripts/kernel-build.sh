@@ -12,7 +12,8 @@ yum install -y \
     perl \
     elfutils-libelf-devel \
     openssl-devel \
-    grub2
+    grub2 \
+    bzip2
 
 cd /usr/src/kernels
 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-"$VERSION".tar.xz
