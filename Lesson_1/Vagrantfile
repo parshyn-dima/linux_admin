@@ -2,31 +2,18 @@ servers=[
   {
     :box_name => "centos/7",
     :hostname => "kernel-update",
-    :cpus => 10,
-    :ram => 4096,
-    :hdd_size => "10000",
-    :hdd_name => "hdd.vdi"
+    :cpus => 2,
+    :ram => 2048,
   }
 ]
 Vagrant.configure("2") do |config|
-  config.vm.synced_folder ".", "/vagrant", disabled: true
   servers.each do |machine|
+    config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.define machine[:hostname] do |node|
       node.vm.box = machine[:box_name]
       node.vm.hostname = machine[:hostname]
       node.vm.provider "virtualbox" do |box|
         box.customize ["modifyvm", :id, "--memory", machine[:ram], "--cpus", machine[:cpus]]
-        if (!machine[:hdd_name].nil?)
-          unless File.exist?(machine[:hdd_name])
-				box.customize ['createhd', '--filename', machine[:hdd_name], '--variant', 'Fixed', '--size', machine[:hdd_size]]
-        needsController =  true
-          end
-        end
-        if needsController == true
-          box.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
-          box.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', machine[:hdd_name]]
-          box.customize ["storageattach", :id, "--storagectl", "IDE", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "emptydrive"]
-        end
       end
       node.vm.provision "shell", path: "./scripts/kernel-update.sh"
     end

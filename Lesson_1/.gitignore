@@ -4,3 +4,4 @@ packer/packer_cache
 Vagrantfile (with comments)
 packer/builds
 *.box
+sync/
