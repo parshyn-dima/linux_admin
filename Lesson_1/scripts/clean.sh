@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # clean all
-#yum update -y
-#yum clean all
+yum clean all
 
 
 # Install vagrant default key
@@ -17,7 +16,7 @@ rm -rf /tmp/*
 rm  -f /var/log/wtmp /var/log/btmp
 rm -rf /var/cache/* /usr/share/doc/*
 rm -rf /var/cache/yum
-#rm -rf /vagrant/home/*.iso
+rm -rf home/vagrant/*.iso
 rm  -f ~/.bash_history
 history -c
 
