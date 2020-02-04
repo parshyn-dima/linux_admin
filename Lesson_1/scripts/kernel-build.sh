@@ -1,4 +1,4 @@
-
+#!/bin/bash
 declare -r VERSION=5.5.1
 yum update -y
 yum install -y \
