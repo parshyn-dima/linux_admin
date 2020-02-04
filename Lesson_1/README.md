@@ -51,3 +51,5 @@ Vagrantfile, который был предоставлен в репозито�
 ![result vagrant](https://github.com/parshyn-dima/screens/blob/master/lesson01/vagrant-result.png)
 
 ***
+
+## Создание образа для Vagrant с помощью Packer
