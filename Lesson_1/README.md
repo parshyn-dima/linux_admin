@@ -103,3 +103,15 @@ Vagrantfile, который был предоставлен в репозито�
 
     sudo yum -y --enablerepo=elrepo-kernel install --skip-broken kernel-ml-{devel,headers} perf
     
+Далее монтируется образ *VirtualBoxGuestAdditions* и запускается скрипт установки
+
+    sudo mkdir /media/VirtualBoxGuestAdditions
+    sudo mount -t iso9660 -o loop /home/vagrant/VBoxGuestAdditions.iso /media/VirtualBoxGuestAdditions
+    cd /media/VirtualBoxGuestAdditions
+    sudo ./VBoxLinuxAdditions.run
+    
+**clean.sh**
+
+Скрипт очищает временные каталоги. Взят полностью из репозитория мануала.
+
+В результате был получен образ 
