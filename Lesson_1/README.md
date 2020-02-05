@@ -19,7 +19,8 @@
 
 ***
 
-## VagrantFile
+## Развертывание ВМ с помощью Vagrant
+
 Vagrantfile, который был предоставлен в репозитории меня не устроил, так как содержит не совсем мне понятный код,
 а также при задании параметров `:net` и `:forwarded_port` выполнение ***vagrant up*** заканчивается ошибкой.
 Поэтому решил сделать свой вариант. Источники нашел в открытом доступе [здесь](http://sysadm.pp.ua/linux/sistemy-virtualizacii/vagrantfile.html) и [здесь](https://github.com/erlong15/otus-linux/blob/master/Vagrantfile).
