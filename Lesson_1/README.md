@@ -118,7 +118,7 @@ Vagrantfile, который был предоставлен в репозито�
 
 ### Загрузка образа в Vagrant Cloud
 
-Полученный box файл загрузил в Vagrant Cloud
+Полученный box файл загрузил в Vagrant Cloud https://app.vagrantup.com/parshyn-dima/boxes/centos-7-7
 
     vagrant cloud publish --release parshyn-dima/centos-7-7 1.0 virtualbox centos-7.7.1908-kernel-5-x86_64-Minimal.box
 
