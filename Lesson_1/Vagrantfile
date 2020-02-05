@@ -8,13 +8,11 @@ servers=[
 ]
 Vagrant.configure("2") do |config|
   servers.each do |machine|
-    config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.define machine[:hostname] do |node|
       node.vm.box = machine[:box_name]
       node.vm.hostname = machine[:hostname]
       node.vm.provider "virtualbox" do |box|
         box.customize ["modifyvm", :id, "--memory", machine[:ram], "--cpus", machine[:cpus]]
-        box.customize ["storageattach", :id, "--storagectl", "IDE", "--port", "0", "--device", "1", "--type", "dvddrive", "--medium", "emptydrive"]
       end
       node.vm.provision "shell", path: "./scripts/kernel-update.sh"
     end
