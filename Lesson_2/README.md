@@ -98,17 +98,27 @@
 
         mdadm --examine --scan >/etc/mdadm.conf
         
-12. 
-   45  mdadm -D /dev/m* |grep UUID
-   46  vim /etc/default/grub
-   47  grub2-mkconfig -o /boot/grub2/grub.cfg
-   48  cat /boot/grub2/device.map
-   49  vim /boot/grub/device.map
-   50  vim /boot/grub2/device.map
-   51  cat /boot/grub2/device.map
-   52  grub2-install /dev/sda
-   53  grub2-install /dev/sdb
-   54  cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.$(date +%m-%d-%H%M%S).bak
-   55  dracut -f --mdadmconf
-   56  reboot
-GRUB_CMDLINE_LINUX="rd.md.uuid=047a78d5:8ad861d2:e0dca429:424f828d rd.md.uuid=ac2439cb:e4769630:5f930b2c:623dfb77 crashkernel=auto spectre_v2=retpoline rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
+12. Изменил в */etc/default/grub* параметр *GRUB_CMDLINE_LINUX*
+
+        GRUB_CMDLINE_LINUX="rd.md.uuid=047a78d5:8ad861d2:e0dca429:424f828d rd.md.uuid=ac2439cb:e4769630:5f930b2c:623dfb77
+        crashkernel=auto spectre_v2=retpoline rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
+        
+13. Обновил grub2.cfg
+
+        grub2-mkconfig -o /boot/grub2/grub.cfg
+        
+14. Переустановл grub на обоих дисках
+   
+        grub2-install /dev/sda
+        grub2-install /dev/sdb
+        
+15. Ребилд initramfs
+
+        dracut -f --mdadmconf
+        
+16. Перезагрузка
+
+        reboot
+        
+Для выполнения этого задания использовал статьтью базы знаний RedHat https://access.redhat.com/solutions/2390831
+
