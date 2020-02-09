@@ -122,6 +122,6 @@
         
 Для выполнения этого задания использовал статьтью базы знаний RedHat https://access.redhat.com/solutions/2390831
 
-Вывод команды lsblk после перезапуска сервера
+Вывод команды lsblk после перезапуска сервера:
 
 ![lsblk_after](https://github.com/parshyn-dima/screens/blob/master/lesson02/lsblk_after.png)
