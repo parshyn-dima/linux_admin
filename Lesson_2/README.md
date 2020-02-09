@@ -85,14 +85,20 @@
        vgreduce centos /dev/sda2
        pvremove /dev/sda2
 
-9. 
+9. Остановил службу lvm
+ 
+       systemctl stop lvm2-lvmetad.service
+       systemctl disable lvm2-lvmetad.service
+       
+10. Добавил раздел sda2 в md1
 
-vim /etc/lvm/lvm.conf 
-   40  systemctl stop lvm2-lvmetad.service
-   41  systemctl disable lvm2-lvmetad.service
-   42  mdadm /dev/md1 -a /dev/sda2
-   43  mdadm -D /dev/md1
-   44  mdadm --examine --scan >/etc/mdadm.conf
+        mdadm /dev/md1 -a /dev/sda2
+
+11. Сохранил конфигурацию RAID в mdadm.conf
+
+        mdadm --examine --scan >/etc/mdadm.conf
+        
+12. 
    45  mdadm -D /dev/m* |grep UUID
    46  vim /etc/default/grub
    47  grub2-mkconfig -o /boot/grub2/grub.cfg
