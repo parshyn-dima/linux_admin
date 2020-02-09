@@ -40,3 +40,68 @@
 ![lsblk_before](https://github.com/parshyn-dima/screens/blob/master/lesson02/lsblk_before.png)
 
 1. Добавил второй жесткий диск 8Гб (sdb) и разметил также как первый (sda)
+
+       parted /dev/sdb mklabel msdos
+       parted /dev/sdb mkpart primary 2048s 2099199s
+       parted /dev/sdb mkpart primary 2099200s 16777215s
+       
+2. Добавил флаг и создал новый RAID
+
+       parted /dev/sda set 1 raid on
+       parted /dev/sda set 2 raid on
+       parted /dev/sdb set 1 raid on
+       parted /dev/sdb set 2 raid on
+       mdadm --create /dev/md0 --level=1 --raid-disks=2 missing /dev/sdb1 --metadata=1.0
+       
+3. Создал ФС и монтировал RAID md0, копировал /boot
+
+       mkfs.xfs /dev/md0
+       mkdir /mnt/md0
+       mount /dev/md0 /mnt/md0
+       yum -y install rsync
+       rsync -a /boot/ /mnt/md0/
+       sync
+       umount /mnt/md0
+       rmdir /mnt/md0
+       
+4. Размонтировал /boot и монтровал туда md0
+
+       umount /boot
+       mount /dev/md0 /boot
+       
+5. Добавил sda1 в md0
+
+       mdadm /dev/md0 -a /dev/sda1
+
+6. Изменил fstab, настроил, чтобы грузился с md0
+7. Создал RAID 1 для sdb2, на котором находится lvm
+
+       mdadm --create /dev/md1 --level=1 --raid-disks=2 missing /dev/sdb2 --metadata=1.0
+       vgextend centos /dev/md1
+       
+8. Переместил sda2 в md1 и удалил
+
+       pvmove /dev/sda2 /dev/md1
+       vgreduce centos /dev/sda2
+       pvremove /dev/sda2
+
+9. 
+
+vim /etc/lvm/lvm.conf 
+   40  systemctl stop lvm2-lvmetad.service
+   41  systemctl disable lvm2-lvmetad.service
+   42  mdadm /dev/md1 -a /dev/sda2
+   43  mdadm -D /dev/md1
+   44  mdadm --examine --scan >/etc/mdadm.conf
+   45  mdadm -D /dev/m* |grep UUID
+   46  vim /etc/default/grub
+   47  grub2-mkconfig -o /boot/grub2/grub.cfg
+   48  cat /boot/grub2/device.map
+   49  vim /boot/grub/device.map
+   50  vim /boot/grub2/device.map
+   51  cat /boot/grub2/device.map
+   52  grub2-install /dev/sda
+   53  grub2-install /dev/sdb
+   54  cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.$(date +%m-%d-%H%M%S).bak
+   55  dracut -f --mdadmconf
+   56  reboot
