@@ -36,3 +36,7 @@
 ## Перенос работающей системы с одним диском на RAID 1
 
 Для данного задания развернул ВМ из образа CentOS-7-x86_64-Minimal-1908. Диск размером 8Гб, разметка по умолчанию.
+
+![lsblk_before](https://github.com/parshyn-dima/screens/blob/master/lesson02/lsblk_before.png)
+
+1. Добавил второй жесткий диск 8Гб (sdb) и разметил также как первый (sda)
