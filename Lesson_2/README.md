@@ -111,3 +111,4 @@
    54  cp /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.$(date +%m-%d-%H%M%S).bak
    55  dracut -f --mdadmconf
    56  reboot
+GRUB_CMDLINE_LINUX="rd.md.uuid=047a78d5:8ad861d2:e0dca429:424f828d rd.md.uuid=ac2439cb:e4769630:5f930b2c:623dfb77 crashkernel=auto spectre_v2=retpoline rd.lvm.lv=centos/root rd.lvm.lv=centos/swap rhgb quiet"
