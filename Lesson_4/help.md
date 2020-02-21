@@ -41,6 +41,126 @@ https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a
 
 Думаю второй будет наиболее оптимальным.
 
+Делает все файлы с в текущем каталоге расширение .sh исполняемыми
+
+    for i in *.sh; do chmod +x $i; done
+
+# Теория
+
+Для выпонения нескольких команд необходимо использовать *;*
+
+    pwd ; whoami
+
+Первая строка в скрипте начинается с *#!* далее путь к программе, которая будет выполнять команды в файле.
+Для обычного скрипта это */bin/bash*
+
+    #!/bin/bash
+    # This is a comment
+    pwd
+    whoami
+
+Для запуска скрипта, его небходимо сделать исполняемым и использовать команду *bash* или *source*
+
+    chmod +x ./myscript
+    bash myscript
+   
+В скриптах можно использовать переменные, которые бывают двух типов:
+* Переменные среды
+* Пользовательские переменные
+
+Использование переменной среды
+
+    echo "Home for the current user is: $HOME"
+
+Чтобы в строке использовать знак доллара как обыктовенный символ, его нужно экаранировать
+
+    echo "I have \$1 in my pocket"
+
+Пользовательские переменные:
+
+    grade=5
+    person="Adam"
+    echo "$person is a good boy, he is in grade $grade"
+    
+Переменной можно присвоить вывод команды
+
+     mydir=`pwd`
+     mydir=$(pwd)
+     
+ Выполнить математические операции $((a+b))
+ 
+    var1=$(( 5 + 5 ))
+    echo $var1
+    var2=$(( $var1 * 2 ))
+    echo $var2
+    
+## Циклы
+**if-then**
+Если условие выполняется то выполняются *команды*
+
+    if команда
+    then
+    команды
+    fi
+
+**if-then-else**
+
+    if команда
+    then
+    команды
+    else
+    команды
+    fi
+    
+    #!/bin/bash
+    user=anotherUser
+    if grep $user /etc/passwd
+    then
+    echo "The user $user Exists"
+    else
+    echo "The user $user doesn’t exist"
+    fi
+
+**elif**
+
+    if команда1
+    then
+    команды
+    elif команда2
+    then
+    команды
+    fi
+    
+Если первая команда вернёт ноль, что говорит о её успешном выполнении, выполнятся команды в первом блоке then, иначе, если первое условие окажется ложным, и если вторая команда вернёт ноль, выполнится второй блок кода.
+
+    #!/bin/bash
+    user=anotherUser
+    if grep $user /etc/passwd
+    then
+    echo "The user $user Exists"
+    elif ls /home
+    then
+    echo "The user doesn’t exist but anyway there is a directory under /home"
+    fi
+
+В подобном скрипте можно, например, создавать нового пользователя с помощью команды useradd, если поиск не дал результатов, или делать ещё что-нибудь полезное.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
