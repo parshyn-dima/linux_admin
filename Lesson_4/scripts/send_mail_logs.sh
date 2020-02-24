@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/vagrant/script/nginx_parser.sh | mail - "Nginx log report" parshyn.dima@gmail.com
+/vagrant/scripts/nginx_parser.sh | mail -s "Nginx log report" root@localhost

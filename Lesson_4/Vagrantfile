@@ -15,13 +15,7 @@ Vagrant.configure("2") do |config|
             box.vm.provider :virtualbox do |vb|
                 vb.customize ["modifyvm", :id, "--memory", "1024"]
             end
-            box.vm.provision "shell", inline: <<-SHELL
-            mkdir -p ~root/.ssh
-            cp ~vagrant/.ssh/auth* ~root/.ssh
-            yum install -y vim
-            mkdir /var/log/nginx
-            SHELL
-            box.vm.provision "file", source: "./logs/access-otus.log", destination: "/var/log/nginx"
+            box.vm.provision "shell", path: "./scripts/provision.sh"
         end
     end
 end

@@ -1,7 +1,7 @@
 #!/bin/bash
 RESPONSE_CODE="2[0-9][0-9]|3[0-9][0-9]"
 ERRORS_CODE="4[0-9][0-9]|5[0-9][0-9]"
-ACCESS_LOG="/var/log/nginx/access-otus.log"
+ACCESS_LOG="/vagrant/logs/access-otus.log"
 RUN_LOG="/var/log/log-pars-tmp.log"
 declare -r TMP_ACCESS="$(mktemp)"
 
