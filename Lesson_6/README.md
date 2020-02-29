@@ -18,7 +18,7 @@
 6. chroot /mnt/sysimage
 7. Если вносились изменения, необходимо выполнить команду
 
-    rm -f /.autorelabel
+        rm -f /.autorelabel
 
 ### Способ №2
 1. Во время старта системы, когда появляется выбор загрузки версии ядра, нажать **e**
@@ -27,13 +27,13 @@
 4. Загрузится initramfs, корневая ФС будет смонтирована в read-only режиме в /sysroot
 5. Монтируем корневую ФС в read-write режиме
 
-    mount -o remount,rw /sysroot
+        mount -o remount,rw /sysroot
 
 6. chroot /sysroot
 7. Если вносились изменения, необходимо выполнить команду
 
-    touch /.autorelabel
+        touch /.autorelabel
 
 8. Перед выходом перевести ФС обратно в режим read-only
 
-    mount -o remount,ro /
+        mount -o remount,ro /
