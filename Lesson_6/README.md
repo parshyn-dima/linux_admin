@@ -113,3 +113,17 @@
 Результат после переименования VG
 
 ![rename-vg](https://github.com/parshyn-dima/screens/blob/master/lesson06/rename-vg.png)
+
+## 3. Добавить модуль в initrd
+
+Необходимо скачать из данного репозитория GitHub каталог Lesson_6 и перейти в него, далее необходимо выполнить
+
+    vagrant up
+
+Далее необходимо войти в созданную ВМ
+
+    vagrant ssh
+
+Перезапустить ВМ и окткрыть ВМ из virtualbox, чтобы увидеть процесс загрузки.
+
+![install-module](https://github.com/parshyn-dima/screens/blob/master/lesson06/install-module.png)
