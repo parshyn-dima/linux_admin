@@ -109,3 +109,6 @@
 
         grub2-mkconfig -o /boot/grub2/grub.cfg
 
+Результат после переименования VG
+
+(https://github.com/parshyn-dima/screens/blob/master/lesson06/rename-vg.png)
