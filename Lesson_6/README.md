@@ -124,6 +124,6 @@
 
     vagrant ssh
 
-Перезапустить ВМ и окткрыть ВМ из virtualbox, чтобы увидеть процесс загрузки.
+Перезапустить ВМ и открыть ВМ из virtualbox, чтобы увидеть процесс загрузки.
 
 ![install-module](https://github.com/parshyn-dima/screens/blob/master/lesson06/install-module.png)
