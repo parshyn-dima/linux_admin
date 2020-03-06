@@ -111,4 +111,4 @@
 
 Результат после переименования VG
 
-(https://github.com/parshyn-dima/screens/blob/master/lesson06/rename-vg.png)
+![rename-vg](https://github.com/parshyn-dima/screens/blob/master/lesson06/rename-vg.png)
