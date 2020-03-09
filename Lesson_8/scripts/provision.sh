@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 yum install -y redhat-lsb-core wget rpmdevtools rpm-build createrepo yum-utils gcc
 cd /root/
 wget https://nginx.org/packages/centos/7/SRPMS/nginx-1.16.1-1.el7.ngx.src.rpm
