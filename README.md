@@ -7,3 +7,4 @@
 6. [Home work #6 Загрузка системы](https://github.com/parshyn-dima/linux_admin/blob/master/Lesson_6)
 7. [Home work #7 Инициализация системы. Systemd и SysV](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_7)
 8. [Home work #8 Управление пакетами. Дистрибьюция софта](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_8)
+9. [Home work #9 Пользователи и группы. Авторизация и аутентификация](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_9)
