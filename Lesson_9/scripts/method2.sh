@@ -14,4 +14,4 @@ else
   echo "account required pam_nologin.so" >> $file
   sed -i '/pam_nologin.so/a account required pam_exec.so /usr/local/bin/test_login.sh' $file 
 fi
-sudo cp /vagrant/scripts/test_login.sh /usr/local/bin/
+cp /vagrant/scripts/test_login.sh /usr/local/bin/

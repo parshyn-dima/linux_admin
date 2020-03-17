@@ -19,9 +19,6 @@ Vagrant.configure("2") do |config|
           #box.vm.provision "shell", path: "./scripts/method1.sh"
           box.vm.provision "shell", path: "./scripts/method2.sh"
           #box.vm.provision "shell", path: "./scripts/method3.sh"
-          box.vm.provision "shell", inline: <<-SHELL
-            cp /vagrant/scripts/test-login.sh /usr/local/bin/
-            SHELL
       end
   end
 end
