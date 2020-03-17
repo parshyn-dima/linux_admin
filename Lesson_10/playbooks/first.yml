@@ -1,0 +1,45 @@
+---
+- name: 'This is our playbook'
+  hosts: proxy
+  gather_facts: true
+  become: true
+  vars:
+    postgres_version: 11
+
+
+  tasks:
+
+    - name: 'Ping proxy servers'
+      ping:
+
+
+    - name: 'Create db backaup log file'
+      file: 
+        path: /var/log/dbbackup.log
+        owner: root
+        group: root
+        mode: '0640'
+        state: touch
+
+    - name: 'Copy file index.html to server'
+      copy:
+        src: ../index.html
+        dest: /srv/root.html
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: '0640'
+
+    - name: 'Install admin packeges'
+      yum:
+        name:
+            - bind-utils
+            - tree
+        state: present
+
+- name: 'Run on all servers'
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+    - ping:
