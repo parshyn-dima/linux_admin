@@ -1,13 +1,8 @@
 #!/bin/bash
-timedatectl set-timezone Europe/Moscow
-yum -y install chrony
-systemctl start chronyd
-systemctl enable chronyd
 useradd user && useradd admin && groupadd admins && usermod -aG admins admin && usermod -aG admins vagrant
 echo "Otus202001" | passwd --stdin user && echo "Otus202001" | passwd --stdin admin
 bash -c "sed -i 's/^PasswordAuthentication.*$/PasswordAuthentication yes/' /etc/ssh/sshd_config && systemctl restart sshd.service"
 cat >> /etc/security/time.conf << EOF
-login
 *;*;*;!Wk0000-2400
 EOF
 for file in '/etc/pam.d/sshd' '/etc/pam.d/login'
