@@ -14,8 +14,9 @@
 
         vagrant up
 
-После развертывания ВМ необходимо выполнить команду
+Проверка
 
-        ansible-playbook -i production/hosts.yml nginx.yml
+        curl 192.168.11.150:8080
+        curl 192.168.11.151:8080
 
 
