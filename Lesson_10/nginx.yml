@@ -1,0 +1,8 @@
+---
+- name: NGINX | Install and configure NGINX
+  hosts: proxy
+  become: true
+  
+  roles: 
+    - deploy_nginx
+      
