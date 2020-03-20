@@ -8,3 +8,4 @@
 7. [Home work #7 Инициализация системы. Systemd и SysV](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_7)
 8. [Home work #8 Управление пакетами. Дистрибьюция софта](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_8)
 9. [Home work #9 Пользователи и группы. Авторизация и аутентификация](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_9)
+10. [Home work #10 Ansible](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_10)
