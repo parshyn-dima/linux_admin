@@ -1,6 +1,6 @@
 ---
 - name: NGINX | Install and configure NGINX
-  hosts: proxy
+  hosts: all
   become: true
   
   roles: 
