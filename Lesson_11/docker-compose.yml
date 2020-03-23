@@ -1,0 +1,19 @@
+version: '3'
+services:
+    nginx:
+        image: dvparshin/dparshin-otus-nginx:01
+        ports:
+            - "80:80"
+        volumes:
+            - ./hosts:/etc/nginx/conf.d
+            - ./www:/var/www
+            - ./logs:/var/log/nginx
+        depends_on:
+            - php
+    php:
+        image: dvparshin/otus-php:01
+        volumes:
+            - ./www:/var/www
+networks:
+  default:
+    driver: bridge
