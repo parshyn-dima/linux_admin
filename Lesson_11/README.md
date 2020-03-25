@@ -22,8 +22,5 @@ Docker-контейнер строится на основе образа. Су�
 
 Создал образ nginx на основе alpine и загрузил на docker hub. Для проверки на хосте должен быть установлен *docker*
 
-        docker run -d -p 80:80 dvparshin/dparshin-otus-nginx:01
-        curl localhost:80
-
-
-
+        docker run -d -p 8080:80 dvparshin/otus-nginx:01
+        curl localhost:8080
