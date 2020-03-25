@@ -9,3 +9,7 @@
 172.18.0.1 - - [22/Mar/2020:19:29:09 +0000] "GET / HTTP/1.1" 200 75807 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.87 Chrome/80.0.3987.87 Safari/537.36"
 172.18.0.1 - - [22/Mar/2020:20:17:45 +0000] "GET / HTTP/1.1" 200 77142 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.87 Chrome/80.0.3987.87 Safari/537.36"
 172.18.0.1 - - [22/Mar/2020:20:34:04 +0000] "GET / HTTP/1.1" 200 76987 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.87 Chrome/80.0.3987.87 Safari/537.36"
+172.18.0.1 - - [23/Mar/2020:16:30:00 +0000] "GET / HTTP/1.1" 200 76987 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.87 Chrome/80.0.3987.87 Safari/537.36"
+172.18.0.1 - - [23/Mar/2020:16:30:01 +0000] "GET /favicon.ico HTTP/1.1" 404 555 "http://localhost/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.87 Chrome/80.0.3987.87 Safari/537.36"
+172.18.0.1 - - [23/Mar/2020:16:30:17 +0000] "GET / HTTP/1.1" 200 77158 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/80.0.3987.87 Chrome/80.0.3987.87 Safari/537.36"
+172.18.0.1 - - [23/Mar/2020:16:32:08 +0000] "GET / HTTP/1.1" 200 74285 "-" "curl/7.58.0"
