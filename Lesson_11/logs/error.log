@@ -1,4 +1,0 @@
-2020/03/22 19:20:35 [error] 6#6: *1 "/var/www/hello.dev/index.php" is not found (2: No such file or directory), client: 172.18.0.1, server: otus.dev, request: "GET / HTTP/1.1", host: "localhost"
-2020/03/22 19:21:34 [error] 6#6: *1 "/var/www/hello.dev/index.php" is not found (2: No such file or directory), client: 172.18.0.1, server: otus.dev, request: "GET / HTTP/1.1", host: "localhost"
-2020/03/22 19:23:33 [error] 6#6: *5 "/var/www/hello.dev/index.php" is not found (2: No such file or directory), client: 172.18.0.1, server: otus.dev, request: "GET / HTTP/1.1", host: "localhost"
-2020/03/23 16:30:01 [error] 6#6: *1 open() "/var/www/otus.dev/favicon.ico" failed (2: No such file or directory), client: 172.18.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
