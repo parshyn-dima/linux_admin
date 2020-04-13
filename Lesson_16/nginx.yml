@@ -2,7 +2,6 @@
 - name: NGINX | Install and configure NGINX
   hosts: all
   become: true
-  
-  roles: 
-    - deploy_nginx
+  tasks:
+    - ping:
       
