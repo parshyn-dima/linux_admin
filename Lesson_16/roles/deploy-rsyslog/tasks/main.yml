@@ -1,6 +1,6 @@
 ---
 # tasks file for deploy-rsyslog
-- name: install rsyslog
+- name: RSYSLOG | install rsyslog
   yum:
     name: rsyslog
     state: present

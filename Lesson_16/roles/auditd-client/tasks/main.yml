@@ -7,12 +7,12 @@
   notify:
     - restart auditd
 
-- name: install audisp plugin for remote logging
+- name: AUDITD | install audisp plugin for remote logging
   yum:
     name: audispd-plugins
     state: present
 
-- name: config remote server ip
+- name: AUDITD | config remote server ip
   lineinfile:
     path: /etc/audisp/audisp-remote.conf
     regexp: 'remote_server ='
@@ -20,7 +20,7 @@
     backrefs: yes
   notify: restart auditd
 
-- name: enable auditd remote logging
+- name: AUDITD | enable auditd remote logging
   lineinfile:
     path: /etc/audisp/plugins.d/au-remote.conf
     regexp: 'active = no'
@@ -28,14 +28,14 @@
     backrefs: yes
   notify: restart auditd
 
-- name: disable local auditd logging
+- name: AUDITD | disable local auditd logging
   lineinfile:
     path: /etc/audit/auditd.conf
     line: 'write_logs = no'
     state: present
   notify: restart auditd
 
-- name: add audit rule to monitor config changes
+- name: AUDITD | add audit rule to monitor config changes
   template:
       dest: /etc/audit/rules.d/{{ audit_key }}.rules
       src: templates/audit.rules.j2

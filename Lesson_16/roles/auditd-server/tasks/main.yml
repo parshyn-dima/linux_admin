@@ -7,7 +7,7 @@
   notify:
     - restart auditd
 
-- name: listen for port 60
+- name: AUDITD | listen for port 60
   lineinfile:
     path: /etc/audit/auditd.conf
     regexp: '^##(tcp_listen_port = 60)$'
