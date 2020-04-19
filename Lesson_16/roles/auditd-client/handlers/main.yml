@@ -1,0 +1,4 @@
+---
+# handlers file for auditd-client
+- name: restart auditd
+  command: service auditd restart

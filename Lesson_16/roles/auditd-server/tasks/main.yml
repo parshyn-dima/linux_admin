@@ -1,0 +1,16 @@
+---
+# tasks file for auditd-server
+- name: AUDITD | install
+  yum:
+    name: audit-libs
+    state: present
+  notify:
+    - restart auditd
+
+- name: listen for port 60
+  lineinfile:
+    path: /etc/audit/auditd.conf
+    regexp: '^##(tcp_listen_port = 60)$'
+    line: '\1'
+    backrefs: yes
+  notify: restart auditd

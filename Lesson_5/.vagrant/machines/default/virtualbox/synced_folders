@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/home/dp/otus/linux_admin/Lesson_5","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

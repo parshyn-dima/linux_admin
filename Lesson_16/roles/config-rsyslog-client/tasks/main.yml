@@ -1,0 +1,47 @@
+---
+# tasks file for config-rsyslog-client
+  - name: NGINX | Install EPEL Repo packages from standard repo
+    yum:
+      name: epel-release
+      state: present
+    tags:
+      - epel-package
+      - packages
+
+  - name: NGINX | Install NGINX package from EPEL Repo
+    yum:
+      name: nginx
+      state: present
+    notify:
+      - restart nginx
+    tags:
+      - nginx-package
+      - packages
+
+  - name: NGINX | Create NGINX config file from template
+    template:
+      src: nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+    notify:
+      - reload nginx
+    tags:
+      - nginx-configuration
+
+  - name: RSYSLOG | install rsyslog
+    yum:
+      name: rsyslog
+      state: present
+    notify:
+      - restart rsyslog
+    tags:
+      - rsyslog-package
+      - packages
+
+  - name: RSYSLOG | Configure rsyslog to send critical errors to log server
+    template:
+      src: rsyslog.conf.j2
+      dest: /etc/rsyslog.conf
+    notify:
+      - restart rsyslog
+    tags:
+      - rsyslog-configuration

@@ -1,0 +1,7 @@
+---
+# handlers file for deploy-rsyslog
+- name: restart rsyslog
+  systemd:
+    name: rsyslog
+    state: restarted
+    enabled: yes

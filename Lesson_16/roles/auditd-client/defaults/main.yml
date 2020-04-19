@@ -1,0 +1,5 @@
+---
+# defaults file for auditd-client
+log_server: 192.168.11.14
+audit_dir: /etc/nginx
+audit_key: nginx_conf

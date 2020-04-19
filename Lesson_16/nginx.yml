@@ -1,7 +1,0 @@
----
-- name: NGINX | Install and configure NGINX
-  hosts: all
-  become: true
-  tasks:
-    - ping:
-      

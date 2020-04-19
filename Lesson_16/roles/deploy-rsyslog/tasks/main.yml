@@ -1,0 +1,21 @@
+---
+# tasks file for deploy-rsyslog
+- name: install rsyslog
+  yum:
+    name: rsyslog
+    state: present
+  notify:
+    - restart rsyslog
+  tags:
+    - rsyslog-package
+    - packages
+
+- name: RSYSLOG | Configure rsyslog to send critical errors to log server
+  template:
+    src: rsyslog.conf.j2
+    dest: /etc/rsyslog.conf
+  notify:
+    - restart rsyslog
+  tags:
+    - rsyslog-configuration
+

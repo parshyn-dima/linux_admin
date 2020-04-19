@@ -1,0 +1,32 @@
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log syslog:server={{log_server}}:{{log_server_port}},facility=local7,tag=nginx_access,severity=info main;
+    error_log syslog:server={{log_server}}:{{log_server_port}},facility=local3,tag=nginx_error,severity=error;
+    error_log  /var/log/nginx/error.log warn;
+    server {
+        listen {{nginx_listen_port}} default_server;
+        server_name default_server;
+        root /usr/share/nginx/html;
+
+        location / {
+        }
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+}
