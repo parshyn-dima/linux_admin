@@ -13,4 +13,4 @@
     regexp: '^##(tcp_listen_port = 60)$'
     line: '\1'
     backrefs: yes
-  notify: restart auditd
+  notify: restart auditd service

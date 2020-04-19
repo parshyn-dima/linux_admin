@@ -1,4 +1,10 @@
 ---
 # handlers file for auditd-server
 - name: restart auditd
+  systemd:
+      name: auditd
+      state: restarted
+      enabled: yes
+
+- name: restart auditd service
   command: service auditd restart
