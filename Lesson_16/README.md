@@ -15,7 +15,7 @@
 Для проверки необходимо скачать из данного репозитория GitHub каталог Lesson_16 и перейти в него.
 Далее необходимо выполнить в терминале
 
-        vagrant up
+		vagrant up
 
 Проверка критических логов.
 
@@ -40,12 +40,12 @@
 
 Проверка аудита файла nginx.conf
 
-		vagrant ssh web
-		sudo su -
-		# Сделать какое-либо изменение файла конфигурации nginx
-		vi /etc/nginx/nginx.conf
-		
-		vagrant ssh log
-		sudo su -
-		ausearch -k nginx_conf
+			vagrant ssh web
+			sudo su -
+			# Сделать какое-либо изменение файла конфигурации nginx
+			vi /etc/nginx/nginx.conf
+			
+			vagrant ssh log
+			sudo su -
+			ausearch -k nginx_conf
 	
