@@ -1,0 +1,16 @@
+---
+- name: Setup log server
+  hosts: log
+  become: true
+  
+  roles:
+    - deploy-rsyslog
+    - auditd-server
+
+- name: Config client
+  hosts: web
+  become: true
+
+  roles:
+    - config-rsyslog-client
+    - auditd-client
