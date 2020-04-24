@@ -1,0 +1,17 @@
+---
+# handlers file for install-prometheus-server
+- name: daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: start prometheus
+  systemd:
+      name: prometheus
+      state: started
+      enabled: yes
+
+- name: restart prometheus
+  systemd:
+    name: prometheus
+    state: restarted
+    enabled: yes

@@ -1,0 +1,11 @@
+---
+# handlers file for install-grafana
+- name: daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: start grafana
+  systemd:
+      name: grafana-server
+      state: started
+      enabled: yes

@@ -1,16 +1,15 @@
 ---
-- name: Setup log server
-  hosts: log
+- name: Setup prometheus server
+  hosts: prometheus
   become: true
   
   roles:
-    - deploy-rsyslog
-    - auditd-server
+    - install-prometheus-server
+    - install-grafana
 
-- name: Config client
-  hosts: web
+- name: Setup node-exporter
+  hosts: client
   become: true
-
+    
   roles:
-    - config-rsyslog-client
-    - auditd-client
+    - install-node-exporter
