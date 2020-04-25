@@ -64,3 +64,32 @@
 На центральной консоли (Monitoring -> Dashboards -> Global View) добавил четыре новых дашборда
 
 ![Zabbix](https://github.com/parshyn-dima/screens/blob/master/lesson18/Zabbix.png)
+
+# Задание с *
+## Nagios Core 4.4.5
+
+На отдельный сервер установил Nagios Core. Установка практически всех компонентов осуществляется с помощью make. Данная система использует Apache+PHP.
+На клиента устанавливается отдельный агент Nagios Core Linux NRPE Agent. Клиента добавить удалось, а как добавить дашборды для его мониторинга я так и не понял.
+Система крайте не запутаная )
+
+![Nagios](https://github.com/parshyn-dima/screens/blob/master/lesson18/Nagios.png)
+
+## NagiosXI
+
+Обнаружил, что существует платная версия, в которой существуют дашборды из коробки (30 дней trial). Установка данной версии намного проще, запуск скрипта.
+
+		curl https://assets.nagios.com/downloads/nagiosxi/install.sh | sh
+
+Агент также устанавливается скриптом
+
+		wget https://assets.nagios.com/downloads/nagiosxi/agents/linux-nrpe-agent.tar.gz
+		tar xzf linux-nrpe-agent.tar.gz
+		cd linux-nrpe-agent
+		./fullinstall
+
+Клиента на сервер добавил, но не смог добавить метрики CPU, Disk, Network. Документация не понравилась, очень все запутанно, нужной информации найти не смог. Форум только для тех, кто купил данную систему мониторинга. Интерфейс системы также не очень удобен.
+
+![NagiosXI](https://github.com/parshyn-dima/screens/blob/master/lesson18/NagiosXI.png)
+
+Не знаю зачтется ли такая работа, но дальше проводить исследования времени нет, потратил всё на данный продукт )
+
