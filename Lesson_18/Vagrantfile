@@ -28,10 +28,31 @@ Vagrant.configure("2") do |config|
         zabbix.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
       end
 
+      config.vm.define "graphite" do |graphite|
+        config.vm.provider "virtualbox" do |v|
+          v.customize ["modifyvm", :id, "--memory", "512"]
+        end
+        graphite.vm.network :private_network, ip: "192.168.11.23"
+        graphite.vm.hostname = "graphite.otus.local"
+        graphite.vm.synced_folder ".", "/vagrant", disabled: true
+        graphite.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
+      end
+
+      config.vm.define "nagios" do |nagios|
+        config.vm.provider "virtualbox" do |v|
+          v.customize ["modifyvm", :id, "--memory", "512"]
+        end
+        nagios.vm.network :private_network, ip: "192.168.11.24"
+        nagios.vm.hostname = "nagios.otus.local"
+        nagios.vm.synced_folder ".", "/vagrant", disabled: true
+        nagios.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
+      end
+
       config.vm.define "controller" do |controller|
         controller.vm.network :private_network, ip: "192.168.11.30"
         controller.vm.hostname = "controller.otus.local"
         controller.vm.provision "shell", privileged: false, path: "./scripts/controller-add-ssh-cert.sh"
         controller.vm.provision "shell", privileged: false, path: "./scripts/install-ansible.sh"
+        controller.vm.provision "shell", privileged: false, path: "./scripts/playbook.sh"
       end
 end
