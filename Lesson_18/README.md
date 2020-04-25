@@ -29,7 +29,7 @@
 
 		http://192.168.11.21:3000
 
-Далее с помошью импорта добавил дашборд в *grafana*. Дашборд взял тот, который рассматривали на лекции.
+Далее с помощью импорта добавил дашборд в *grafana*. Дашборд взял тот, который рассматривали на лекции.
 
 ![Prometheus+Grafana](https://github.com/parshyn-dima/screens/blob/master/lesson18/Prometheus%2BGrafana.png)
 
@@ -53,8 +53,8 @@
 
 Отредактировать /etc/zabbix/zabbix_agentd.conf
 
-		Server=192.168.1.25
-		ServerActive=192.168.1.25
+		Server=
+		ServerActive=
 		Hostname=client # имя вашего узла мониторинга, которое будет указано на сервере zabbix
 
 		systemctl start zabbix-agent
@@ -70,7 +70,7 @@
 
 На отдельный сервер установил Nagios Core. Установка практически всех компонентов осуществляется с помощью make. Данная система использует Apache+PHP.
 На клиента устанавливается отдельный агент Nagios Core Linux NRPE Agent. Клиента добавить удалось, а как добавить дашборды для его мониторинга я так и не понял.
-Система крайте не запутаная )
+Система крайте не запутанная )
 
 ![Nagios](https://github.com/parshyn-dima/screens/blob/master/lesson18/Nagios.png)
 
