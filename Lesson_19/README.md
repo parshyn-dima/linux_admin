@@ -48,7 +48,7 @@ Office2----/
 
 ## Схема сети
 
-![Схема сети](https://github.com/parshyn-dima/screens/blob/master/lesson19/%D0%A1%D1%85%D0%B5%D0%BC%D0%B0%20%D1%81%D0%B5%D1%82%D0%B8%20v2.png)
+![Схема сети](https://github.com/parshyn-dima/screens/blob/master/lesson19/%D0%A1%D1%85%D0%B5%D0%BC%D0%B0%20%D1%81%D0%B5%D1%82%D0%B8%20v3.png)
 
 ## Теоретическая часть
 
