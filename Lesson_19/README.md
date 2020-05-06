@@ -79,7 +79,7 @@ Office2----/
 
         box.vm.network :private_network, ip: "192.168.56.50"
 
-[!Настройки сети](https://github.com/parshyn-dima/screens/blob/master/lesson19/Network%20config.png)
+![Настройки сети](https://github.com/parshyn-dima/screens/blob/master/lesson19/Network%20config.png)
 
 На данную ВМ также устанавливается ansible.
 
@@ -101,6 +101,8 @@ Office2----/
 После перезагрузки ВМ интерфейс eth0 восстанавливается соответственно для откючения необходимо снова запускать *provision.sh*
 
 ### Проверка работы стенда
+
+Подключиться к ВМ **controller**
 
         ip route
         tracepath -n <IP>
