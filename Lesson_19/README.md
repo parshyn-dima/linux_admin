@@ -101,6 +101,8 @@ Office2----/
 
 ### Проверка работы стенда
 
+Подключиться к ВМ **controller**
+
         ip route
         tracepath -n <IP>
         ping -c 5 <Внутренний IP>
