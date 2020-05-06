@@ -65,3 +65,13 @@ cp promtool /usr/local/bin/
 Для проверки конфигурационного файла запускаем команду:
 promtool check config /etc/prometheus/prometheus.yml
 
+## Установка Zabbix
+https://www.zabbix.com/download?zabbix=4.4&os_distribution=red_hat_enterprise_linux&os_version=7&db=mysql&ws=apache
+yum install mariadb-server
+systemctl start mariadb
+systemctl enable mariadb
+https://www.zabbix.com/documentation/current/ru/manual/installation/install_from_packages/rhel_centos
+https://www.zabbix.com/documentation/current/ru/manual/quickstart/login
+https://andreyex.ru/centos-7/kak-ustanovit-i-nastroit-zabbix-dlya-bezopasnogo-nablyudeniya-za-udalennymi-serverami-na-centos-7/
+https://serveradmin.ru/ustanovka-i-nastroyka-zabbix-3-4-na-centos-7/
+https://kifarunix.com/install-zabbix-agent-on-centos-7-for-zabbix-monitoring/
