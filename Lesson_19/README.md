@@ -79,7 +79,7 @@ Office2----/
 
         box.vm.network :private_network, ip: "192.168.56.50"
 
-[!Настройки сети](https://github.com/parshyn-dima/screens/blob/master/lesson19/Network%20config.png)
+![Настройки сети](https://github.com/parshyn-dima/screens/blob/master/lesson19/Network%20config.png)
 
 На данную ВМ также устанавливается ansible.
 
