@@ -1,0 +1,13 @@
+[ipaserver]
+ipa.otus.local
+
+[ipaserver:vars]
+ipaserver_domain=otus.local
+ipaserver_realm=OTUS.LOCAL
+ipaserver_setup_dns=yes
+ipaserver_auto_forwarders=yes
+ipaadmin_password=MySecretPassword123
+ipadm_password=MySecretPassword234
+
+[cl01]
+cl01.otus.local
