@@ -1,111 +1,42 @@
 # -*- mode: ruby -*-
-# vim: set ft=ruby :
-MACHINES = {
-  :inetRouter => {
-        :box_name => "centos/7",
-        :net => [
-                    {ip: '192.168.255.1', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
-                ]
-  },
-  :centralRouter => {
-        :box_name => "centos/7",
-        :net => [  {ip: '192.168.255.2', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
-                   {ip: '192.168.254.1', adapter: 3, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
-                   {ip: '192.168.253.1', adapter: 4, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
-                   {ip: '192.168.0.1', adapter: 5, netmask: "255.255.255.240", virtualbox__intnet: "central-net"},
-                ]
-  },
+# vi: set ft=ruby :
 
-  :office1Router => {
-    :box_name => "centos/7",
-    :net => [
-               {ip: '192.168.254.2', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
-               {ip: '192.168.2.65', adapter: 3, netmask: "255.255.255.192", virtualbox__intnet: "test servers1"},
-            ]
-  },
-
-  :office2Router => {
-    :box_name => "centos/7",
-    :net => [
-               {ip: '192.168.253.2', adapter: 2, netmask: "255.255.255.252", virtualbox__intnet: "router-net"},
-               {ip: '192.168.1.129', adapter: 3, netmask: "255.255.255.192", virtualbox__intnet: "test servers2"},
-            ]
-  },
-
-  :centralServer => {
-        :box_name => "centos/7",
-        :net => [
-                   {ip: '192.168.0.2', adapter: 2, netmask: "255.255.255.240", virtualbox__intnet: "central-net"},
-                ]
-  },
-
-  :office1Server => {
-    :box_name => "centos/7",
-    :net => [
-               {ip: '192.168.2.66', adapter: 2, netmask: "255.255.255.192", virtualbox__intnet: "test servers1"},
-            ]
-  },
-
-  :office2Server => {
-    :box_name => "centos/7",
-    :net => [
-               {ip: '192.168.1.130', adapter: 2, netmask: "255.255.255.192", virtualbox__intnet: "test servers2"},
-            ]
-  },
-
-  :controller => {
-        :box_name => "centos/7",
-        :net => [
-                   {ip: '192.168.0.3', adapter: 3, netmask: "255.255.255.240", virtualbox__intnet: "central-net"},
-                ]
-  },
-}
-
-Vagrant.configure("2") do |config|
-  MACHINES.each do |boxname, boxconfig|
-    config.vm.define boxname do |box|
-        box.vm.box = boxconfig[:box_name]
-        box.vm.host_name = boxname.to_s
-        boxconfig[:net].each do |ipconf|
-          box.vm.network "private_network", ipconf
-        end
-        
-        case boxname.to_s
-        when "inetRouter"
-          box.vm.provision "shell", privileged: true, path: "./scripts/inetRouter.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-
-        when "centralRouter"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/centralRouter.sh"
-
-        when "office1Router"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/office1Router.sh"
-        
-        when "office2Router"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/office2Router.sh"
-
-        when "centralServer"
-          box.vm.provision "shell", privileged: true, path: "./scripts/centralServer.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-
-        when "office1Server"
-          box.vm.provision "shell", privileged: true, path: "./scripts/office1Server.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-
-        when "office2Server"
-          box.vm.provision "shell", privileged: true, path: "./scripts/office2Server.sh"
-          box.vm.provision "shell", privileged: true, path: "./scripts/install-script.sh"
-
-        when "controller"
-          box.vm.network :private_network, ip: "192.168.56.50"
-          box.vm.provision "shell", privileged: false, path: "./scripts/controller.sh"
-          box.vm.provision "shell", privileged: false, path: "./scripts/enable-passwd-ssh.sh"
-          box.vm.provision "shell", privileged: false, path: "./scripts/controller-add-ssh-cert.sh"
-          box.vm.provision "shell", privileged: false, path: "./scripts/install-ansible.sh"
-        end
-      end
+Vagrant.configure(2) do |config|
+    config.vm.box = "centos/7"
+    config.vm.box_version = "1905.1"
+  
+    config.vm.provider "virtualbox" do |v|
+      v.memory = 256
+      v.cpus = 1
+    end
+  
+    config.vm.define "r1" do |r1|
+      r1.vm.network "private_network", ip: "172.16.1.1", virtualbox__intnet: "link1"
+      r1.vm.network "private_network", ip: "172.16.2.1", virtualbox__intnet: "link2"
+      r1.vm.hostname = "r1"
+    end
+  
+    config.vm.define "r2" do |r2|
+      r2.vm.network "private_network", ip: "172.16.1.2", virtualbox__intnet: "link1"
+      r2.vm.network "private_network", ip: "172.16.3.2", virtualbox__intnet: "link3"
+      r2.vm.hostname = "r2"
+    end
+  
+    config.vm.define "r3" do |r3|
+      r3.vm.network "private_network", ip: "172.16.2.3", virtualbox__intnet: "link2"
+      r3.vm.network "private_network", ip: "172.16.3.3", virtualbox__intnet: "link3"
+      r3.vm.hostname = "r3"
+    end
+  
+    #config.vm.provision "ansible" do |ansible|
+    #  ansible.verbose = "v"
+    #  ansible.playbook = "start.yml"
+    #  ansible.become = "true"
+    #end
+  
+    #config.vm.provision "shell", run: "always", inline: <<-SHELL
+    #  ip route delete default 2>&1 >/dev/null || true
+    #  systemctl restart network
+    #  SHELL
+  
   end
-end
