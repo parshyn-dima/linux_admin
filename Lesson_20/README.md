@@ -46,4 +46,4 @@
 
 Браузер: **http://localhost:8080/**
 
-CURL: **curl -I localhost:8080/**
+CURL: **curl -I localhost:8080**
