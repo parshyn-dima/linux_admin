@@ -11,5 +11,5 @@
 
 ## Схема сети
 
-![Схема сети](https://github.com/parshyn-dima/screens/blob/master/lesson20/Otus%20-firewall.png)
+![Схема сети](https://github.com/parshyn-dima/screens/blob/master/lesson20/Otus%20-firewallv2.png)
 
