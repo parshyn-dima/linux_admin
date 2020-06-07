@@ -29,7 +29,7 @@
 
 Для открытия ssh на inetRouter
 
-    bash /vagrant/files/knock.sh open
+    bash /vagrant/scripts/knock.sh open
 
 Доступ по ssh на inetRouter открыт
 
@@ -38,7 +38,7 @@
 
 Закрыть доступ по ssh на inetRouter
 
-    bash /vagrant/files/knock.sh close
+    bash /vagrant/scripts/knock.sh close
 
 ### Проброс порта
 
