@@ -13,5 +13,3 @@ sudo nmcli con mod "System eth2" +ipv4.routes "192.168.2.0/24 192.168.254.2"
 sudo nmcli con up "System eth2"
 sudo nmcli con mod "System eth3" +ipv4.routes "192.168.1.0/24 192.168.253.2"
 sudo nmcli con up "System eth3"
-#sudo ip route add 192.168.2.0/24 via 192.168.254.2 dev eth2
-#sudo ip route add 192.168.1.0/24 via 192.168.253.2 dev eth3
