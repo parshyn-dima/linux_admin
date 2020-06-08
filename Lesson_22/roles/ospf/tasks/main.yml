@@ -1,0 +1,53 @@
+---
+- name: Configure OSPF
+  copy:
+    src: router.conf
+    dest: /etc/sysctl.d/
+
+- name: Load sysctl
+  shell: sysctl --load=/etc/sysctl.d/router.conf
+
+- name: R1 | Create lo.2
+  copy:
+    src: ./r1/ifcfg-lo.2
+    dest: /etc/sysconfig/network-scripts/ifcfg-lo.2
+    owner: root
+    group: root
+    mode: '0644'
+  when: ansible_nodename == "r1"
+  notify:
+    - reload network service
+
+- name: R2 | Create lo.2
+  copy:
+    src: ./r2/ifcfg-lo.2
+    dest: /etc/sysconfig/network-scripts/ifcfg-lo.2
+  when: ansible_nodename == "r2"
+  notify:
+    - reload network service
+
+- name: R3 | Create lo.2
+  copy:
+    src: ./r3/ifcfg-lo.2
+    dest: /etc/sysconfig/network-scripts/ifcfg-lo.2
+  when: ansible_nodename == "r3"
+  notify:
+    - reload network service
+
+- name: Install quagga
+  yum:
+    name: quagga
+    state: present
+
+- name: SELinux
+  shell: setsebool zebra_write_config 1
+
+- name: Copy ospfd.conf
+  copy:
+    src: ospfd.conf
+    dest: /etc/quagga/
+    owner: quagga
+    group: quaggavt
+  notify:
+    - start zebra
+    - start ospfd

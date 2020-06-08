@@ -1,0 +1,18 @@
+---
+# handlers file for ospf
+- name: reload network service
+  systemd:
+    name: network
+    state: reloaded
+
+- name: start zebra
+  systemd:
+      name: zebra
+      state: started
+      enabled: yes
+
+- name: start ospfd
+  systemd:
+      name: ospfd
+      state: started
+      enabled: yes
