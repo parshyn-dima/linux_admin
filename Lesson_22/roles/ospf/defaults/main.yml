@@ -1,2 +1,5 @@
 ---
 # defaults file for ospf
+hostname_r1: r1
+hostname_r2: r2
+hostname_r3: r3

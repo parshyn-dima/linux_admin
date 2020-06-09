@@ -1,0 +1,26 @@
+!
+! Zebra configuration saved from vty
+!   2020/06/09 21:57:21
+!
+!
+!
+!
+interface eth0
+!
+interface eth1
+!
+interface eth2
+!
+interface lo
+!
+router ospf
+ ospf router-id 10.0.0.3
+ passive-interface default
+ no passive-interface eth1
+ no passive-interface eth2
+ network 10.0.0.3/32 area 0.0.0.0
+ network 172.16.2.0/24 area 0.0.0.0
+ network 172.16.3.0/24 area 0.0.0.0
+!
+line vty
+!

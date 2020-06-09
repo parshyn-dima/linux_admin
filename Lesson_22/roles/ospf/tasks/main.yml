@@ -43,11 +43,104 @@
   shell: setsebool zebra_write_config 1
 
 - name: Copy ospfd.conf
-  copy:
-    src: ospfd.conf
-    dest: /etc/quagga/
+  file:
+    path: /etc/quagga/ospfd.conf
+    state: touch
     owner: quagga
     group: quaggavt
   notify:
     - start zebra
     - start ospfd
+
+- name: start firewalld
+  systemd:
+      name: firewalld
+      state: started
+      enabled: yes
+
+- name: firewall protocol 89
+  shell: firewall-cmd --add-protocol=89 --permanent
+
+- name: firewall protocol ospf
+  shell: firewall-cmd --add-protocol=ospf --permanent
+
+- name: Install tcpdump
+  yum:
+    name: tcpdump
+    state: present
+
+- name: delete default route
+  shell: sudo nmcli con mod "System eth0" ipv4.never-default yes
+  when: ansible_nodename == "r2"
+
+- name: reload config eth0
+  shell: sudo nmcli con up "System eth0"
+  when: ansible_nodename == "r2"
+
+- name: delete default route
+  shell: sudo nmcli con mod "System eth0" ipv4.never-default yes
+  when: ansible_nodename == "r3"
+
+- name: reload config eth0
+  shell: sudo nmcli con up "System eth0"
+  when: ansible_nodename == "r3"
+
+- name: R1 | Copy ospfd.conf
+  template:
+    src: ospfd.conf_r1.j2
+    dest: /etc/quagga/ospfd.conf
+    owner: quagga
+    group: quaggavt
+  when: ansible_nodename == "r1"
+  notify:
+    - start zebra
+    - start ospfd
+
+- name: R1 | Copy zebra.conf
+  template:
+    src: zebra.conf_r1.j2
+    dest: /etc/quagga/zebra.conf
+  when: ansible_nodename == "r1"
+  notify:
+    - start zebra
+    - start ospfd
+
+- name: R2 | Copy ospfd.conf
+  template:
+    src: ospfd.conf_r2.j2
+    dest: /etc/quagga/ospfd.conf
+    owner: quagga
+    group: quaggavt
+  when: ansible_nodename == "r2"
+  notify:
+    - start zebra
+    - start ospfd
+
+- name: R2 | Copy zebra.conf
+  template:
+    src: zebra.conf_r2.j2
+    dest: /etc/quagga/zebra.conf
+  when: ansible_nodename == "r2"
+  notify:
+    - start zebra
+    - start ospfd
+
+- name: R3 | Copy ospfd.conf
+  template:
+    src: ospfd.conf_r3.j2
+    dest: /etc/quagga/ospfd.conf
+    owner: quagga
+    group: quaggavt
+  when: ansible_nodename == "r3"
+  notify:
+    - start zebra
+    - start ospfd
+
+- name: R3 | Copy zebra.conf
+  template:
+    src: zebra.conf_r3.j2
+    dest: /etc/quagga/zebra.conf
+  when: ansible_nodename == "r3"
+  notify:
+    - start zebra
+    - start ospfd 
