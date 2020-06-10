@@ -16,3 +16,8 @@
       name: ospfd
       state: started
       enabled: yes
+
+- name: restart firewalld
+  systemd:
+      name: firewalld
+      state: reloaded

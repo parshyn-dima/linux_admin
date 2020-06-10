@@ -60,9 +60,13 @@
 
 - name: firewall protocol 89
   shell: firewall-cmd --add-protocol=89 --permanent
+  notify:
+    - restart firewalld
 
 - name: firewall protocol ospf
   shell: firewall-cmd --add-protocol=ospf --permanent
+  notify:
+    - restart firewalld
 
 - name: Install tcpdump
   yum:
