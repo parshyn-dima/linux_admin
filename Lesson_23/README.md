@@ -21,16 +21,25 @@
 ### Клиент №1
 
     vagrant ssh client1
-    *Клиент1 видит web1*
+    
+*Клиент1 видит web1*
+    
     dig +noall +answer web1.dns.lab
-    *Клиент1 не видит web2*
+    
+*Клиент1 не видит web2*
+    
     dig +noall +answer web2.dns.lab
-    *Клиент1 видит зону newdns*
+    
+*Клиент1 видит зону newdns*
+    
     dig +noall +answer www.newdns.lab
-    *PTR записи видны в newdns.lab, но в зоне dns.lab видно только web1
+    
+*PTR записи видны в newdns.lab, но в зоне dns.lab видно только web1*
+    
     dig +noall +answer -x 192.168.50.16
 
-    *Теже команды но в качестве сервера имен используется slave dns, ns02*
+*Теже команды но в качестве сервера имен используется slave dns, ns02*
+    
     dig +noall +answer @192.168.50.11 web1.dns.lab
     dig +noall +answer @192.168.50.11 web2.dns.lab
     dig +noall +answer @192.168.50.11 www.newdns.lab
