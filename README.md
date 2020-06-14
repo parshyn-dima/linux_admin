@@ -14,3 +14,4 @@
 13. [Home work #16 Сбор и анализ логов](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_16)
 14. [Home work #18 Мониторинг и алертинг](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_18)
 15. [Home work #19 Архитектура сетей](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_19)
+16. [Home work #23 DNS/DHCP - настройка и обслуживание](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_23)
