@@ -1,18 +1,33 @@
-# Vagrant DNS Lab
+# Домашнее задание №23
 
-A Bind's DNS lab with Vagrant and Ansible, based on CentOS 7.
+взять стенд https://github.com/erlong15/vagrant-bind
+добавить еще один сервер client2
+завести в зоне dns.lab
+имена
+web1 - смотрит на клиент1
+web2 смотрит на клиент2
 
-# Playground
+завести еще одну зону newdns.lab
+завести в ней запись
+www - смотрит на обоих клиентов
 
-<code>
-    vagrant ssh client
-</code>
+настроить split-dns
+клиент1 - видит обе зоны, но в зоне dns.lab только web1
 
-  * zones: dns.lab, reverse dns.lab and ddns.lab
-  * ns01 (192.168.50.10)
-    * master, recursive, allows update to ddns.lab
-  * ns02 (192.168.50.11)
-    * slave, recursive
-  * client (192.168.50.15)
-    * used to test the env, runs rndc and nsupdate
-  * zone transfer: TSIG key
+клиент2 видит только dns.lab
+
+## Проверка
+
+Для проверки необходимо скачать из данного репозитория GitHub каталог Lesson_23 и перейти в него. Далее необходимо выполнить в терминале
+
+    vagrant up
+
+  dig web1.dns.lab
+  dig web2.dns.lab
+  dig www.newdns.lab
+  dig -x 192.168.50.16
+
+  dig @192.168.50.11 web1.dns.lab
+  dig @192.168.50.11 web2.dns.lab
+  dig @192.168.50.11 www.newdns.lab
+  dig @192.168.50.11 -x 192.168.50.16
