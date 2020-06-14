@@ -44,5 +44,30 @@
     dig +noall +answer @192.168.50.11 web2.dns.lab
     dig +noall +answer @192.168.50.11 www.newdns.lab
     dig +noall +answer @192.168.50.11 -x 192.168.50.16
+    exit
     
 ### Клиент №2
+
+    vagrant ssh client2
+    
+*Клиент2 видит dns.lab*
+
+    dig +noall +answer web1.dns.lab
+    dig +noall +answer web2.dns.lab
+    
+*Клиент2 не видит зону newdns.lab*
+
+    dig +noall +answer www.newdns.lab
+    
+*PTR записи также отображаются только для зоны dns.lab*
+
+    dig +noall +answer -x 192.168.50.15
+    dig +noall +answer -x 192.168.50.16
+    
+*Теже команды но в качестве сервера имен используется slave dns, ns02*
+    
+    dig +noall +answer @192.168.50.11 web1.dns.lab
+    dig +noall +answer @192.168.50.11 web2.dns.lab
+    dig +noall +answer @192.168.50.11 www.newdns.lab
+    dig +noall +answer @192.168.50.11 -x 192.168.50.16
+    exit
