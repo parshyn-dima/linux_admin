@@ -1,6 +1,7 @@
 # Домашнее задание №23
 
 взять стенд https://github.com/erlong15/vagrant-bind
+
 добавить еще один сервер client2
 завести в зоне dns.lab
 имена
