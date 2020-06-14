@@ -4,7 +4,7 @@
     добавить еще один сервер client2
     завести в зоне dns.lab имена
     web1 - смотрит на клиент1
-    web2 смотрит на клиент2
+    web2 - смотрит на клиент2
     завести еще одну зону newdns.lab
     завести в ней запись
     www - смотрит на обоих клиентов
@@ -17,13 +17,23 @@
 Для проверки необходимо скачать из данного репозитория GitHub каталог Lesson_23 и перейти в него. Далее необходимо выполнить в терминале
 
     vagrant up
+    
+### Клиент №1
 
-  dig web1.dns.lab
-  dig web2.dns.lab
-  dig www.newdns.lab
-  dig -x 192.168.50.16
+    vagrant ssh client1
+    *Клиент1 видит web1*
+    dig +noall +answer web1.dns.lab
+    *Клиент1 не видит web2*
+    dig +noall +answer web2.dns.lab
+    *Клиент1 видит зону newdns*
+    dig +noall +answer www.newdns.lab
+    *PTR записи видны в newdns.lab, но в зоне dns.lab видно только web1
+    dig +noall +answer -x 192.168.50.16
 
-  dig @192.168.50.11 web1.dns.lab
-  dig @192.168.50.11 web2.dns.lab
-  dig @192.168.50.11 www.newdns.lab
-  dig @192.168.50.11 -x 192.168.50.16
+    *Теже команды но в качестве сервера имен используется slave dns, ns02*
+    dig +noall +answer @192.168.50.11 web1.dns.lab
+    dig +noall +answer @192.168.50.11 web2.dns.lab
+    dig +noall +answer @192.168.50.11 www.newdns.lab
+    dig +noall +answer @192.168.50.11 -x 192.168.50.16
+    
+### Клиент №2
