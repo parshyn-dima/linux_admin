@@ -20,7 +20,7 @@
 
 После того как ВМ будет развернута в терминале выполняем
 
-        vagrant ssh
-        cd /vagrant
-        sudo bash ionice/run.sh
+vagrant ssh
+cd /vagrant
+sudo bash ionice/run.sh
 	
