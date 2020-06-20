@@ -1,0 +1,65 @@
+---
+- name: Add user
+  user:
+    name: kafka
+    group: wheel
+
+- name: "Encrypt password for target system"
+  command: "python -c 'import crypt; print crypt.crypt(\"{{ password }}\")'"
+  register: EFAP
+- name: Add user kafka
+  user: 
+    name: kafka
+    state: present
+    password: "{{ EFAP.stdout }}"
+
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - java-11-openjdk
+    - wget
+    - vim
+
+- name: Download Apache Kafka
+  get_url:
+    url: http://www-us.apache.org/dist/kafka/2.4.0/kafka_2.13-2.4.0.tgz
+    dest: /tmp/
+
+- name: unzip package
+  shell: cd /tmp && tar xzf kafka_2.13-2.4.0.tgz && mv kafka_2.13-2.4.0 /usr/local/kafka
+
+- name: Copy zookeeper.service file
+  copy:
+    src: zookeeper.service
+    dest: /etc/systemd/system/
+
+- name: Copy kafka.service file
+  copy:
+    src: kafka.service
+    dest: /etc/systemd/system/
+
+- name: Create a directory kafka.service.d
+  file:
+    path: /etc/systemd/system/kafka.service.d
+    state: directory
+
+- name: Copy cpu.conf file
+  copy:
+    src: cpu.conf
+    dest: /etc/systemd/system/kafka.service.d
+
+- name: daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: start zookeeper
+  systemd:
+      name: zookeeper
+      state: started
+
+- name: start kafka
+  systemd:
+      name: kafka
+      state: started

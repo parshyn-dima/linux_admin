@@ -1,0 +1,109 @@
+---
+- name: install epel
+  yum:
+    name: epel-release
+
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - spawn-fcgi
+    - php
+    - php-cli
+    - mod_fcgid
+    - httpd
+
+- name: Copy spawn-fcgi file
+  copy:
+    src: spawn-fcgi
+    dest: /etc/sysconfig/spawn-fcgi
+
+- name: Copy spawn-fcgi.service file
+  copy:
+    src: spawn-fcgi.service
+    dest: /etc/systemd/system/
+
+- name: start spawn-fcgi
+  systemd:
+      name: spawn-fcgi
+      state: started
+
+- name: Copy httpd
+  copy:
+    src: /usr/lib/systemd/system/httpd.service
+    dest: /etc/systemd/system/httpd@.service
+    remote_src: yes
+
+- name: replace string in httpd
+  lineinfile:
+    path: /etc/systemd/system/httpd@.service
+    regexp: 'EnvironmentFile=/etc/sysconfig/httpd'
+    line: EnvironmentFile=/etc/sysconfig/httpd-%I
+    state: present
+
+- name: Copy httpd-first file
+  copy:
+    src: httpd-first
+    dest: /etc/sysconfig/
+
+- name: Copy httpd-second file
+  copy:
+    src: httpd-second
+    dest: /etc/sysconfig/
+
+- name: Copy first.conf file
+  copy:
+    src: first.conf
+    dest: /etc/httpd/conf
+
+- name: Copy second.conf file
+  copy:
+    src: second.conf
+    dest: /etc/httpd/conf
+
+- name: Copy httpd
+  copy:
+    src: /etc/httpd/conf/httpd.conf
+    dest: /etc/httpd/conf/first.conf
+    remote_src: yes
+
+- name: Copy httpd
+  copy:
+    src: /etc/httpd/conf/httpd.conf
+    dest: /etc/httpd/conf/second.conf
+    remote_src: yes
+
+- name: Remove httpd
+  file:
+    path: /etc/sysconfig/httpd
+    state: absent
+
+- name: replace string in httpd
+  lineinfile:
+    path: /etc/httpd/conf/second.conf
+    regexp: Listen 80
+    line: Listen 8080
+    state: present
+
+- name: Add string
+  command: sed -i '/ServerRoot "\/etc\/httpd"/a PidFile \/var\/run\/second.pid' /etc/httpd/conf/second.conf
+
+- name: stop httpd
+  systemd:
+      name: httpd
+      state: stopped
+
+- name: daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: start httpd@first
+  systemd:
+      name: httpd@first
+      state: started
+
+- name: start httpd@second
+  systemd:
+      name: httpd@second
+      state: started

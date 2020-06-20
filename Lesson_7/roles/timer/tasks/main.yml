@@ -1,0 +1,41 @@
+---
+# Сервис, который будет раз в 30 секунд мониторить лог на предмет наличия ключевого слова
+- name: Copy watchdog file
+  copy:
+    src: watchdog
+    dest: /etc/sysconfig/watchdog
+
+- name: Copy watchlog.log file
+  copy:
+    src: watchlog.log
+    dest: /var/log/
+
+- name: Copy watclog.sh file
+  copy:
+    src: watchlog.sh
+    dest: /opt/watchlog.sh
+    mode: +x
+
+- name: Copy watchlog.service file
+  copy:
+    src: watchlog.service
+    dest: /etc/systemd/system/
+
+- name: Copy watchlog.timer file
+  copy:
+    src: watchlog.timer
+    dest: /etc/systemd/system/
+
+- name: daemon reload
+  systemd:
+    daemon_reload: yes
+
+- name: start watchlog.timer
+  systemd:
+      name: watchlog.timer
+      state: started
+
+- name: start watchlog.timer
+  systemd:
+      name: watchlog.service
+      state: reloaded

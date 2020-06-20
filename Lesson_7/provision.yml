@@ -1,0 +1,9 @@
+---
+- name: Home work systemd
+  hosts: systemd
+  become: true
+  
+  roles:
+    - timer
+    - httpd
+    - kafka

@@ -1,0 +1,22 @@
+[Unit]
+Description=Apache Kafka Server
+Documentation=http://kafka.apache.org/documentation.html
+Requires=zookeeper.service
+
+[Service]
+CPUShares=800
+MemoryLimit=2G
+BlockIOWeight=500
+BlockIOReadBandwith=/var/log 5M
+
+SuccessExitStatus=143
+Type=simple
+Environment="JAVA_HOME=/usr/lib/jvm/jre-11-openjdk"
+ExecStart=/usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/server.properties
+ExecStop=/usr/local/kafka/bin/kafka-server-stop.sh
+
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=multi-user.target
