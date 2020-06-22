@@ -10,7 +10,7 @@
 9. [Home work #9 Пользователи и группы. Авторизация и аутентификация](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_9)
 10. [Home work #10 Ansible](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_10)
 11. [Home work #11 Docker](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_11)
-12.
+12. [Home work #12 SELinux - когда все запрещено](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_12)
 13. [Home work #16 Сбор и анализ логов](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_16)
 14. [Home work #18 Мониторинг и алертинг](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_18)
 15. [Home work #19 Архитектура сетей](https://github.com/parshyn-dima/linux_admin/tree/master/Lesson_19)
