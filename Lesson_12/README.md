@@ -57,7 +57,7 @@ https://github.com/mbfx/otus-linux-adm/tree/master/selinux_dns_problems
 
 С помощью рекомендаций, которые даются в выводе *sealert* данную ошибку устранить не удалось.  
 
-В руководстве по RedHat SELinux [Ссылка] (https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-managing_confined_services-bind-configuration_examples) говорится о том, что файлы, созданные в этом каталоге /var/named/dynamic/ или скопированные в него, наследуют разрешения Linux, которые позволяют named писать в них.
+В руководстве по RedHat SELinux [Ссылка](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-managing_confined_services-bind-configuration_examples) говорится о том, что файлы, созданные в этом каталоге /var/named/dynamic/ или скопированные в него, наследуют разрешения Linux, которые позволяют named писать в них.
 Заменил в *named.conf* и *playbook.yml* **/etc/named/dynamic** на **/var/named/dynamic** и заново развернул ВМ с измененными настройками. Данно решение принесло положительный результат, ошибка больше не воспроизводится.
 
 Пытался изменить контект файлов, без переноса, с помощью утилит chcon, semanage fcontext и restorecon. В итоге контекст изменить не получилось.
