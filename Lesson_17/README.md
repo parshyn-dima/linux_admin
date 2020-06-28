@@ -17,7 +17,7 @@
 	sudo su - borg
 	borg init -e none borg@backup:server-etc
 
-Скрипт запуска и хранения резервного копирования размещен в директории */etc/cron.hourly*. В качестве лога используется вывод результатов выполнения скрипта backup-data.sh и размещается в */var/log/borg/backup.log*. Скрипт запускаем из-под root.
+Скрипт запуска и хранения резервного копирования размещен в директории */etc/cron.hourly*. В качестве лога используется вывод результатов выполнения скрипта backup-data.sh, размещается в */var/log/borg/backup.log*. Скрипт запускаем из-под root.
 
 	bash /etc/cron.hourly/backup-data-cron.sh
 	или
