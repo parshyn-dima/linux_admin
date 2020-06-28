@@ -1,0 +1,65 @@
+Script started on Sun Jun 28 10:11:43 2020
+]0;vagrant@server:~[?1034h[vagrant@server ~]$ sudo su - borg
+]0;borg@server:~[?1034h[borg@server ~]$ ssh borg@backup hostname
+The authenticity of host 'backup (192.168.11.21)' can't be established.
+ECDSA key fingerprint is SHA256:7YCepPGgmQYGKNH6p5QhMjBJLtyfs+8Jp2p1cZkr96w.
+ECDSA key fingerprint is MD5:51:c5:bb:93:d7:7c:2d:cb:8e:a0:67:27:93:2f:83:a4.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'backup,192.168.11.21' (ECDSA) to the list of known hosts.
+backup
+]0;borg@server:~[borg@server ~]$ borg init -e none borg@backup:server-etc
+]0;borg@server:~[borg@server ~]$ exit
+logout
+]0;vagrant@server:~[vagrant@server ~]$ sudo su -
+]0;root@server:~[?1034h[root@server ~]# bash /home/borg/backup-data.sh
+server-etc
+The authenticity of host 'backup (192.168.11.21)' can't be established.
+ECDSA key fingerprint is SHA256:7YCepPGgmQYGKNH6p5QhMjBJLtyfs+8Jp2p1cZkr96w.
+ECDSA key fingerprint is MD5:51:c5:bb:93:d7:7c:2d:cb:8e:a0:67:27:93:2f:83:a4.
+Are you sure you want to continue connecting (yes/no)? yes
+Remote: Warning: Permanently added 'backup,192.168.11.21' (ECDSA) to the list of known hosts.
+Warning: Attempting to access a previously unknown unencrypted repository!
+Do you want to continue? [yN] y
+Initializing cache transaction: Reading config                                                                                                  Initializing cache transaction: Reading chunks                                                                                                  Initializing cache transaction: Reading files                                                                                                                                                                                                                                                   Saving files cache                                                                                                                              Saving chunks cache                                                                                                                             Saving cache config                                                                                                                                                                                                                                                                             0 B O 0 B C 0 B D 0 N etc                                                                                                                       Initializing cache transaction: Reading config                                                                                                  Initializing cache transaction: Reading chunks                                                                                                  Initializing cache transaction: Reading files                                                                                                                                                                                                                                                   911.63 kB O 346.84 kB C 346.84 kB D 130 N etc/DIR_COLORS                                                                                        8.89 MB O 2.85 MB C 2.85 MB D 162 N etc/sestatus.conf                                                                                           13.43 MB O 4.58 MB C 4.58 MB D 253 N etc/selinux/targeted/active/modules/100/asterisk/lang_ext                                                  14.42 MB O 5.51 MB C 5.51 MB D 438 N etc/selinux/targeted/active/modules/100/ptchown/hll                                                        15.18 MB O 6.24 MB C 6.24 MB D 583 N etc/selinux/targeted/active/modules/100/clock/lang_ext                                                     15.78 MB O 6.80 MB C 6.80 MB D 717 N etc/selinux/targeted/active/modules/100/openwsman/hll                                                      16.42 MB O 7.41 MB C 7.41 MB D 860 N etc/selinux/targeted/active/modules/100/awstats                                                            17.07 MB O 8.03 MB C 8.03 MB D 1000 N etc/selinux/targeted/active/modules/100/nagios/hll                                                        17.84 MB O 8.77 MB C 8.77 MB D 1142 N etc/selinux/targeted/active/modules/100/xserver/hll                                                       18.46 MB O 9.35 MB C 9.35 MB D 1265 N etc/selinux/targeted/active/modules/100/kmscon/hll                                                        19.21 MB O 10.07 MB C 10.06 MB D 1407 N etc/selinux/targeted/active/modules/100/sysadm/lang_ext                                                 25.33 MB O 12.25 MB C 10.63 MB D 1510 N etc/vmware-tools/scripts/vmware/network                                                                 26.88 MB O 12.96 MB C 11.34 MB D 1627 N etc/pki/java                                                                                            Remote: Compacting segments   0%Remote: Compacting segments  50%Saving files cache                                                                                                                              Saving chunks cache                                                                                                                             Saving cache config                                                                                                                                                                                                                                                                                                                                                                                                                             ------------------------------------------------------------------------------
+Archive name: etc-2020-06-28_10:12:49
+Archive fingerprint: 183e501de1933b39fa853d51e053994a57c82087970546a24ad718e98f8cdb62
+Time (start): Sun, 2020-06-28 10:12:57
+Time (end):   Sun, 2020-06-28 10:13:00
+Duration: 2.75 seconds
+Number of files: 1693
+Utilization of max. archive size: 0%
+------------------------------------------------------------------------------
+                       Original size      Compressed size    Deduplicated size
+This archive:               27.80 MB             13.20 MB             11.58 MB
+All archives:               27.80 MB             13.20 MB             11.58 MB
+
+                       Unique chunks         Total chunks
+Chunk index:                    1276                 1690
+------------------------------------------------------------------------------
+Keeping archive: etc-2020-06-28_10:12:49              Sun, 2020-06-28 10:12:57 [183e501de1933b39fa853d51e053994a57c82087970546a24ad718e98f8cdb62]
+]0;root@server:~[root@server ~]# bash /etc/cron.hourly/backup-data-cron.sh
+]0;root@server:~[root@server ~]# sudo run-parts /etc/cron.hourly
+]0;root@server:~[root@server ~]# sudo su - borg
+Last login: Sun Jun 28 10:11:51 MSK 2020 on pts/1
+]0;borg@server:~[?1034h[borg@server ~]$ borg list backup:server-etc
+Warning: The repository at location ssh://backup/./server-etc was previously located at ssh://borg@backup/./server-etc
+Do you want to continue? [yN] y
+etc-2020-06-28_10:12:49              Sun, 2020-06-28 10:12:57 [183e501de1933b39fa853d51e053994a57c82087970546a24ad718e98f8cdb62]
+etc-2020-06-28_10:13:32              Sun, 2020-06-28 10:13:33 [831bd721891e006d1900f20eefc27f20e897cecbf2b2c70bcd0ce2510911b3f9]
+etc-2020-06-28_10:13:43              Sun, 2020-06-28 10:13:44 [76f8be3ab15ffcf8ac746dc97d4822a6a36dbcb5eedba44f7e4fc91887a14cac]
+]0;borg@server:~[borg@server ~]$ mkdir /tmp/backup
+]0;borg@server:~[borg@server ~]$ borg mount backup:server-etc::etc-2020-06-28_09:32:55 /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/[1P /tmp/backup/e /tmp/backup/t /tmp/backup/c /tmp/backup/- /tmp/backup/2 /tmp/backup/0 /tmp/backup/2 /tmp/backup/0 /tmp/backup/- /tmp/backup/0 /tmp/backup/6 /tmp/backup/- /tmp/backup/2 /tmp/backup/8 /tmp/backup/_ /tmp/backup/1 /tmp/backup/0 /tmp/backup/: /tmp/backup/1 /tmp/backup/2 /tmp/backup/: /tmp/backup/4 /tmp/backup/9 /tmp/backup/
+]0;borg@server:~[borg@server ~]$ cat /tmp/backup/etc/hosts
+127.0.0.1       server  server
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.11.20 server
+192.168.11.21 backup
+192.168.11.30 controller]0;borg@server:~[borg@server ~]$ exit
+logout
+]0;root@server:~[root@server ~]# exit
+logout
+]0;vagrant@server:~[vagrant@server ~]$ exit
+exit
+
+Script done on Sun Jun 28 10:15:26 2020

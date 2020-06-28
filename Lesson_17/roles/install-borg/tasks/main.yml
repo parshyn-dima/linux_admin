@@ -1,0 +1,93 @@
+---
+# tasks file for install borg
+- name: Add the user borg
+  user:
+    name: borg
+    comment: Backup user
+    
+- name: install epel
+  yum:
+    name: epel-release
+
+- name: Install Borg
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - borgbackup
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Modify file hosts
+  template:
+    dest: /etc/hosts
+    src: templates/hosts.j2
+
+- name: Copy script
+  copy:
+    src: backup-data.sh
+    dest: /home/borg/
+    mode: +x
+  when: ansible_nodename == "server"
+
+- name: Copy script
+  copy:
+    src: backup-data-cron.sh
+    dest: /etc/cron.hourly/
+    mode: +x
+  when: ansible_nodename == "server"
+
+- name: Create a directory ssh
+  file:
+    path: /home/borg/.ssh
+    state: directory
+    owner: borg
+    group: borg
+    mode: '0700'
+
+- name: Copy ssh key
+  copy:
+    src: "{{ item }}"
+    dest: /home/borg/.ssh
+    owner: borg
+    group: borg
+    mode: '0600'
+  with_fileglob:
+    - id_rsa*
+  when: ansible_nodename == "server"
+
+- name: Create a directory ssh
+  file:
+    path: /root/.ssh
+    state: directory
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: Copy ssh key
+  copy:
+    src: "{{ item }}"
+    dest: /root/.ssh
+    owner: root
+    group: root
+    mode: '0600'
+  with_fileglob:
+    - id_rsa*
+  when: ansible_nodename == "server"
+
+- name: Copy authorized_keys
+  copy:
+    src: authorized_keys
+    dest: /home/borg/.ssh
+    owner: borg
+    group: borg
+    mode: '0600'
+  when: ansible_nodename == "backup"
+
+- name: Create a log directory
+  file:
+    path: /var/log/borg
+    state: directory
+  when: ansible_nodename == "server"
