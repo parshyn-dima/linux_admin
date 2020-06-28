@@ -30,7 +30,7 @@ https://github.com/mbfx/otus-linux-adm/tree/master/selinux_dns_problems
 
     setsebool -P nis_enabled 1
 
-Данаая утилита устанавливает текущее значение для одного переключателя или целого списка переключателей SELinux.  
+Данная утилита устанавливает текущее значение для одного переключателя или целого списка переключателей SELinux.  
 Так как данная команда включает переключатель NIS (Network Information System), не совсем понятно, что конкретно  
 активируется в системе вместе с unreserved_port_t. Возможность включить только unreserved_port_t не нашел.
 
@@ -48,7 +48,7 @@ https://github.com/mbfx/otus-linux-adm/tree/master/selinux_dns_problems
 ## Обеспечить работоспособность приложения при включенном selinux.
 
 При попытке обновить зону *ddns.lab* с помощью *nsupdate* возникает ошибка *SERVFAIL*
-Если перевести SELinux на ВМ ns01 в режим permissive, с помощью команды **setenforce 0**, данная ошибка не воспроизводится. Соответственно можно сделать вывод, что проблема в неккоректных настройках, несовместимыми с политиками SELinux.  
+Если перевести SELinux на ВМ ns01 в режим permissive, с помощью команды **setenforce 0**, данная ошибка не воспроизводится. Соответственно можно сделать вывод, что проблема в некорректных настройках, несовместимыми с политиками SELinux.  
 Также это подтверждается при проверке */var/log/audit/audit.log*, для удобства можно воспользоваться утилитами audit2why или sealert (необходимо запускать из под root на ВМ ns01).
 
     audit2why < /var/log/audit/audit.log
@@ -57,10 +57,10 @@ https://github.com/mbfx/otus-linux-adm/tree/master/selinux_dns_problems
 
 С помощью рекомендаций, которые даются в выводе *sealert* данную ошибку устранить не удалось.  
 
-В руководстве по RedHat SELinux [Ссылка] (https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-managing_confined_services-bind-configuration_examples) говорится о том, что файлы, созданные в этом каталоге /var/named/dynamic/ или скопированные в него, наследуют разрешения Linux, которые позволяют named писать в них.
-Заменил в *named.conf* и *playbook.yml* **/etc/named/dynamic** на **/var/named/dynamic** и заново развернул ВМ с измененными настройками. Данно решение принесло положительный результат, ошибка больше не воспроизводится.
+В руководстве по RedHat SELinux [Ссылка](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/selinux_users_and_administrators_guide/sect-managing_confined_services-bind-configuration_examples) говорится о том, что файлы, созданные в этом каталоге /var/named/dynamic/ или скопированные в него, наследуют разрешения Linux, которые позволяют named писать в них.
+Заменил в *named.conf* и *playbook.yml* **/etc/named/dynamic** на **/var/named/dynamic** и заново развернул ВМ с измененными настройками. Данное решение принесло положительный результат, ошибка больше не воспроизводится.
 
-Пытался изменить контект файлов, без переноса, с помощью утилит chcon, semanage fcontext и restorecon. В итоге контекст изменить не получилось.
+Пытался изменить контекст файлов, без переноса, с помощью утилит chcon, semanage fcontext и restorecon. В итоге контекст изменить не получилось.
 
 Для выполнения домашнего задания необходимо скачать из данного репозитория GitHub каталог Lesson_12 и перейти в него, далее необходимо выполнить в терминале
 
