@@ -15,8 +15,8 @@
 
 Добовляем пользователя **user**
 
-![FreeIPA] https://github.com/parshyn-dima/screens/blob/master/Lesson26/FreeIPA.png
+![FreeIPA](https://github.com/parshyn-dima/screens/blob/master/Lesson26/FreeIPA.png)
 
 Затем перейдя в ВМ cl01 можно убедиться, что пользователь создался и на cl01
 
-![Client] https://github.com/parshyn-dima/screens/blob/master/Lesson26/Client.png
+![Client](https://github.com/parshyn-dima/screens/blob/master/Lesson26/Client.png)
