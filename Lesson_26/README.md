@@ -19,7 +19,7 @@
     Логин: admin
     Пароль: MySecretPassword123
 
-Добовляем пользователя **user**
+Добавляем пользователя **user**
 
 ![FreeIPA](https://github.com/parshyn-dima/screens/blob/master/Lesson26/FreeIPA.png)
 
