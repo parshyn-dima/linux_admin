@@ -13,10 +13,25 @@
 
     192.168.11.13 ipa.otus.local ipa
 
+Переходим в web консоль
+
+    http://ipa.otus.local
+    Логин: admin
+    Пароль: MySecretPassword123
+
 Добовляем пользователя **user**
 
 ![FreeIPA](https://github.com/parshyn-dima/screens/blob/master/Lesson26/FreeIPA.png)
 
-Затем перейдя в ВМ cl01 можно убедиться, что пользователь создался и на cl01
+Затем перейдя в ВМ **cl01** можно убедиться, что пользователь создался и на **cl01**
 
 ![Client](https://github.com/parshyn-dima/screens/blob/master/Lesson26/Client.png)
+
+ Также создать пользователя можно через консоль. Переходим в ВМ **ipa**
+
+    vagrant ssh ipa
+    kinit admin
+    Пароль: MySecretPassword123
+    echo password | ipa user-add --first="Dmitriy" --last="Parshin" --cn="Dmitriy Parshin" --password dparshin --shell="/bin/bash"
+
+![FreeIPA](https://github.com/parshyn-dima/screens/blob/master/Lesson26/FreeIPA2.png)
