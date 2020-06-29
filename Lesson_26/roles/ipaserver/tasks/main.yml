@@ -1,18 +1,29 @@
 ---
-# tasks file for ipaserver
+- name: updgrade all packages
+  yum:
+    name: '*'
+    state: latest
 
-- name: Import variables specific to distribution
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
-    - "vars/{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-    - "vars/{{ ansible_distribution }}.yml"
-    - "vars/default.yml"
+- name: install epel
+  yum:
+    name: epel-release
 
-- name: Install IPA server
-  include_tasks: install.yml
-  when: state|default('present') == 'present'
+- name: Install packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - ipa-server
+    - ipa-server-dns
 
-- name: Uninstall IPA server
-  include_tasks: uninstall.yml
-  when: state|default('present') == 'absent'
+- name: Change /etc/hosts
+  copy:
+    src: hosts
+    dest: /etc/hosts
+
+- name: IPA-Server install
+  ignore_errors: True
+  register: result
+  command: ipa-server-install --hostname={{ server }} --domain={{ domain }} --realm={{ realm }} --ds-password={{ dmpassword }} --admin-password={{ password }} --mkhomedir --setup-dns --forwarder=8.8.8.8 --auto-reverse --unattended
+  notify:
+    - restart ipa

@@ -6,3 +6,11 @@
   roles:
   - role: ipaserver
     state: present
+
+- name: Playbook to configure IPA client
+  hosts: cl01
+  become: true
+
+  roles:
+  - role: ipaclient
+    state: present

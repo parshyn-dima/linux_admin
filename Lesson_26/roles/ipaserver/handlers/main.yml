@@ -1,0 +1,5 @@
+---
+- name: restart ipa
+  systemd:
+    name: ipa
+    state: restarted

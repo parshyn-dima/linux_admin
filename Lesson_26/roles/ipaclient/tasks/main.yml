@@ -1,0 +1,22 @@
+---
+- name: Install packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - ipa-client
+
+- name: Change /etc/hosts
+  copy:
+    src: hosts
+    dest: /etc/hosts
+    
+- name: resolv.conf configuring
+  lineinfile:
+    path: /etc/resolv.conf
+    line: "nameserver 192.168.11.13"
+
+- name: IPA-Client install
+  ignore_errors: True
+  register: result
+  command: ipa-client-install  --mkhomedir --server={{ server }} --domain={{ domain }}  --realm={{ realm }} --principal={{ admin }} --password={{ password }} --force-ntpd --unattended

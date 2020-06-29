@@ -1,0 +1,7 @@
+---
+domain: "otus.local"
+server: "ipa.otus.local"
+realm: "OTUS.LOCAL"
+admin: "admin"
+password: "MySecretPassword123"
+dmpassword: "MySecretPassword234"

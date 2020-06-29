@@ -1,0 +1,39 @@
+---
+# tasks file for install vpn  
+- name: install epel
+  yum:
+    name: epel-release
+
+- name: Install packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - openvpn
+    - iperf3
+    - tcpdump
+
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Copy server.conf
+  copy:
+    src: static.key
+    dest: /etc/openvpn/static.key
+
+- name: Copy server.conf
+  copy:
+    src: server/server.conf
+    dest: /etc/openvpn/server.conf
+  when: ansible_nodename == "server"
+  notify:
+    - start openvpn
+
+- name: Copy server.conf
+  copy:
+    src: client/server.conf
+    dest: /etc/openvpn/server.conf
+  when: ansible_nodename == "client"
+  notify:
+    - start openvpn

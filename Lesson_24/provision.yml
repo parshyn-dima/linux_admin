@@ -1,0 +1,7 @@
+---
+- name: Setup prometheus server
+  hosts: all
+  become: true
+  
+  roles:
+    - install-vpn
