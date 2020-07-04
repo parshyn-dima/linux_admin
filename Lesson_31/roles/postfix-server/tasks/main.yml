@@ -1,0 +1,17 @@
+---
+- name: install postfix
+  yum:
+    name: postfix
+    state: present
+  notify: restart postfix
+
+- name: install mail client util
+  yum:
+    name: mailx
+    state: present
+
+- name: copy postfix config file
+  template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+  notify: restart postfix
