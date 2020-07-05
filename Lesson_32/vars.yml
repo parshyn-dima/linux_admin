@@ -1,0 +1,9 @@
+---
+mysql_password: 'mEd+(C}DTf+qCajO;!w5'
+remote_dump_path: /vagrant/master.sql
+local_dump_path: /tmp/master.sql
+replication_user: repl
+replication_password: '-G]^emgqDZWN1CSkn?RN'
+replication_ignore_tables:
+  - bet.events_on_demand
+  - bet.v_same_event

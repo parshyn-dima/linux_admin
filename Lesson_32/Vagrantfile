@@ -1,15 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+# MySQL
 
 Vagrant.configure(2) do |config|
-    config.vm.box = "centos/7"
-  
-    config.vm.provider "virtualbox" do |v|
-        v.memory = 1024
-    end
-  
-    config.vm.define "ns01" do |ns01|
-      ns01.vm.network "private_network", ip: "192.168.56.150", virtualbox__intnet: "dns"
-      ns01.vm.hostname = "ns01"
-    end
+  config.vm.box = "centos/7"
+  config.vm.box_check_update = false
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "provision.yml"
+  end
+
+  config.vm.define "master" do |master|
+    master.vm.hostname = "master"
+    master.vm.network "private_network", ip: "192.168.56.150"
+  end
+
+  config.vm.define "slave" do |slave|
+    slave.vm.hostname = "slave"
+    slave.vm.network "private_network", ip: "192.168.56.151"
+  end
 end

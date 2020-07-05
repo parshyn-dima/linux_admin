@@ -12,13 +12,6 @@ Vagrant.configure("2") do |config|
       mysql01.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
     end
 
-    config.vm.define "mysql02" do |mysql02|
-      mysql02.vm.network :private_network, ip: "192.168.56.151"
-      mysql02.vm.hostname = "mysql02.otus.local"
-      mysql02.vm.synced_folder ".", "/vagrant", disabled: true
-      mysql02.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
-    end
-
     config.vm.define "controller" do |controller|
       controller.vm.network :private_network, ip: "192.168.56.140"
       controller.vm.hostname = "controller.otus.local"

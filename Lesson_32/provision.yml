@@ -1,0 +1,38 @@
+---
+- name: Add records to /etc/hosts
+  hosts: all
+  become: True
+  gather_facts: False
+  roles:
+    - role: hosts
+      ip: 192.168.56.150
+      dns: master
+    - role: hosts
+      ip: 192.168.56.151
+      dns: slave
+
+- name: setup master
+  hosts: master
+  become: True
+  gather_facts: False
+  vars_files:
+    - vars.yml
+  roles:
+    - role: percona-server
+      server_id: 1
+    - role: restore-dump
+      database_name: bet
+      backup_path: /vagrant/files/bet.dmp
+    - role: config-master-repl
+
+- name: setup slave
+  hosts: slave
+  become: True
+  gather_facts: False
+  vars_files:
+    - vars.yml
+  roles:
+    - role: percona-server
+      server_id: 2
+      is_slave: True
+    - role: config-slave-repl
