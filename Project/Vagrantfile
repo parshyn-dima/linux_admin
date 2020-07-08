@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+# Проект
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "centos/7"
+  
+    config.vm.define "pxc01" do |pxc01|
+      pxc01.vm.network :private_network, ip: "192.168.56.150"
+      pxc01.vm.hostname = "pxc01.otus.local"
+      pxc01.vm.synced_folder ".", "/vagrant", disabled: true
+      pxc01.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
+    end
+
+    config.vm.define "pxc02" do |pxc02|
+      pxc02.vm.network :private_network, ip: "192.168.56.151"
+      pxc02.vm.hostname = "pxc02.otus.local"
+      pxc02.vm.synced_folder ".", "/vagrant", disabled: true
+      pxc02.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
+    end
+
+    config.vm.define "pxc03" do |pxc03|
+      pxc03.vm.network :private_network, ip: "192.168.56.152"
+      pxc03.vm.hostname = "pxc03.otus.local"
+      pxc03.vm.synced_folder ".", "/vagrant", disabled: true
+      pxc03.vm.provision "shell", privileged: false, path: "./scripts/install-script.sh"
+    end
+
+    config.vm.define "controller" do |controller|
+      controller.vm.network :private_network, ip: "192.168.56.140"
+      controller.vm.hostname = "controller.otus.local"
+      controller.vm.provision "shell", privileged: false, path: "./scripts/controller-add-ssh-cert.sh"
+      controller.vm.provision "shell", privileged: false, path: "./scripts/install-ansible.sh"
+      controller.vm.provision "shell", privileged: false, path: "./scripts/playbook.sh"
+    end
+end

@@ -1,0 +1,4 @@
+[db]
+node1 ansible_host=192.168.56.150
+node2 ansible_host=192.168.56.151
+node3 ansible_host=192.168.56.152

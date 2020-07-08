@@ -1,0 +1,22 @@
+---
+- name: Add records to /etc/hosts
+  hosts: all
+  become: True
+  gather_facts: False
+  roles:
+    - role: hosts
+      ip: 192.168.56.150
+      dns: pxc01.otus.local
+    - role: hosts
+      ip: 192.168.56.151
+      dns: pxc02.otus.local
+    - role: hosts
+      ip: 192.168.56.152
+      dns: pxc03.otus.local
+
+- name: Setup Percona XtraDB Cluster
+  become: True
+  hosts: pxc
+  gather_facts: True
+  roles:
+    - role: percona-cluster
