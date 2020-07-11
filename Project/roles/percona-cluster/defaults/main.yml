@@ -1,8 +1,0 @@
----
-# defaults file for percona-cluster
-mysql_config: /etc/my.cnf
-mysql_root_password: 'y+]KniyW}0hk,M?'
-mysql_name_user: 'root'
-mysql_port: 3306
-mysql_user_sst: 'sstuser'
-mysql_password_sst: 'W@GNobnygH5-r~z'
