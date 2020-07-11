@@ -1,0 +1,5 @@
+---
+- name: Add hosts
+  copy:
+    src: hosts
+    dest: /etc/hosts
